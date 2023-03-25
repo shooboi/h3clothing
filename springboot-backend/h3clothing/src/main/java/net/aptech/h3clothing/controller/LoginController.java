@@ -8,14 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 @RestController
 @RequestMapping("/")
 public class LoginController {
     @Autowired
     LoginService service;
     @PostMapping("/login")
-    public ResponseEntity<?> login( @RequestBody LoginDTO loginDTO){
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO){
         try{
             JWTResponse response = service.login(loginDTO);
             return ResponseEntity.ok(response);
