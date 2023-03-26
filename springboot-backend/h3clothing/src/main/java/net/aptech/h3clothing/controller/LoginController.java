@@ -5,6 +5,7 @@ import net.aptech.h3clothing.dto.response.JWTResponse;
 import net.aptech.h3clothing.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,9 +14,13 @@ import javax.validation.Valid;
 public class LoginController {
     @Autowired
     LoginService service;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
     @PostMapping("/login")
+
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO){
         try{
+            System.out.println(loginDTO.getEmail());
             JWTResponse response = service.login(loginDTO);
             return ResponseEntity.ok(response);
         }catch(Exception ex){
