@@ -17,8 +17,7 @@ public class User extends Base {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "dob")
-    private Date dob;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
