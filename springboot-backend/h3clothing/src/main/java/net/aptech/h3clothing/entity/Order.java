@@ -17,6 +17,7 @@ public class Order extends  Base {
     @Column(name = "payment_method")
     private String paymentMethod;
 
+
     @Column(name = "delivery_address")
     private String deliveryAddress;
 
