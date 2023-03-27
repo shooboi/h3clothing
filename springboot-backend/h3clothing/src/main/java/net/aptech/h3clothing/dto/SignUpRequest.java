@@ -1,23 +1,30 @@
 package net.aptech.h3clothing.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
-@Getter
-@Setter
-@AllArgsConstructor
-public class LoginDTO {
-//    @Email
+public class SignUpRequest {
     @NotBlank
+    @Size(min = 4, max = 40)
+    private String name;
+
+    @NotBlank
+    @Size(max = 40)
+    @Email
     private String email;
-//    @Pattern(regexp = "a-z")
+
     @NotBlank
+    @Size(min = 6, max = 20)
     private String password;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getEmail() {
         return email;

@@ -20,7 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(
+//          securedEnabled = true,
+//          jsr250Enabled = true,
+//          prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JWTAuthenticationFilter authenticationFilter;
@@ -29,19 +32,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .cors()
-                .and()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests().antMatchers("/login").permitAll()
+                    .and()
+                .csrf()
+                    .disable()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
+                .authorizeRequests()
+                    .antMatchers(
+                            "/login",
+                            "/favicon.ico",
+                            "/**/*.png",
+                            "/**/*.gif",
+                            "/**/*.svg",
+                            "/**/*.jpg",
+                            "/**/*.html",
+                            "/**/*.css",
+                            "/**/*.js")
+                    .permitAll()
+                    .antMatchers("/api/auth/**")
+                    .permitAll()
                 .anyRequest().authenticated()
-                .and()
+                    .and()
                 .exceptionHandling().authenticationEntryPoint(((request, response, authException) -> {
                     response.sendError(
                             HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage()
                     );
                 }))
-                .and()
+                    .and()
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .headers().cacheControl();
 
