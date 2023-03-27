@@ -34,7 +34,7 @@ public class CustomerUserDetail implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (Role role : u.getRoleSet()) {
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName().name()));
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
         return authorities;
     }

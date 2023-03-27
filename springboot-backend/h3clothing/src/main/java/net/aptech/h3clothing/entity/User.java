@@ -1,6 +1,8 @@
 package net.aptech.h3clothing.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -12,23 +14,15 @@ import java.util.HashSet;
 import java.util.Set;
 @Data
 @Entity
-@Table(name = "users", uniqueConstraints = {
-                        @UniqueConstraint(columnNames = {"email"})
-                        }
-)
+@Table(name = "users")
 public class User extends Base {
 
     @Column(name = "user_id")
     private String userId;
 
     @Column(name = "email")
-    @NaturalId
-    @NotBlank
-    @Email
-    @Size(max = 100)
     private String email;
 
-    @NotBlank
     @Column(name = "password")
     private String password;
 
@@ -40,41 +34,14 @@ public class User extends Base {
     public User() {
     }
 
-    public User(String userId, String email, String password) {
-        this.userId = userId;
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
+    public User(String email, String password, Set<Role> roleSet) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<Role> getRoleSet() {
-        return roleSet;
-    }
-
-    public void setRoleSet(Set<Role> roleSet) {
         this.roleSet = roleSet;
     }
 }

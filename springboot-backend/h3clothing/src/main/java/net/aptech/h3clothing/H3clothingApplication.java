@@ -8,10 +8,10 @@ import java.util.TimeZone;
 
 @SpringBootApplication(scanBasePackages = "net.aptech.h3clothing")
 public class H3clothingApplication{
-    @PostConstruct
-    void init() {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-    }
+//    @PostConstruct
+//    void init() {
+//        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(H3clothingApplication.class, args);
