@@ -35,15 +35,15 @@ public class UserServiceImpl implements GenericService<UserDTO> {
 
     @Override
     public UserDTO save(UserDTO user) {
-        if (!repository.existsByEmail(user.getEmail())) {
+        if (repository.existsByEmail(user.getEmail()) == null) {
             User us = utility.convertUserFromUserDTO(user);
-            us.setRoleSet(Set.of(roleRepository.getById(2)));
+            us.setRoleSet(Set.of(roleRepository.getById(1)));
             us.setPassword(passwordEncoder.encode(user.getPassword()));
 
             User u = repository.save(us);
             return new UserDTO(u.getEmail(), u.getPassword());
         } else {
-            throw new DuplicateException("Email does not exists !");
+            throw new DuplicateException("Email exists !");
         }
     }
 

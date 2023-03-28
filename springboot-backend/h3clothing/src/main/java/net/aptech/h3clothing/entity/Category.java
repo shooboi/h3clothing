@@ -15,4 +15,12 @@ public class Category extends Base{
 
     @Column(name = "parent_id")
     private int parentId;
+
+    public Category() {
+    }
+
+    public Category(String title, int parentId) {
+        this.title = title;
+        this.parentId = parentId;
+    }
 }
