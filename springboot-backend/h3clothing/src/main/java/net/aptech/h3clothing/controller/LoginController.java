@@ -50,9 +50,10 @@ public class LoginController {
 
     }
 
-    @RolesAllowed({"ADMIN"})
+//    @RolesAllowed({"ROLE_ADMIN"})
+    @PreAuthorize ("hasAuthority('ADMIN')")
     @GetMapping("/ok")
-//    @PreAuthorize ("hasRole('ADMIN')")
+
     public String ok() {
         return "OK";
     }

@@ -35,6 +35,7 @@ public class CustomerUserDetail implements UserDetails {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (Role role : u.getRoleSet()) {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+            System.out.println(role.getRoleName());
         }
         return authorities;
     }

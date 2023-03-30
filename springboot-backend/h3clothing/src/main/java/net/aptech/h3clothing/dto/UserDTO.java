@@ -1,11 +1,9 @@
 package net.aptech.h3clothing.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
 
