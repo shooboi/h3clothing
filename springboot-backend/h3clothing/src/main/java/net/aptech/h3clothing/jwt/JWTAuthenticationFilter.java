@@ -2,6 +2,7 @@ package net.aptech.h3clothing.jwt;
 
 import net.aptech.h3clothing.entity.User;
 import net.aptech.h3clothing.security.CustomerUserDetail;
+import net.aptech.h3clothing.security.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -21,50 +23,39 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     TokenJWTUtil tokenJWTUtils;
 
+    @Autowired
+    UserDetailServiceImpl userDetailsService;
+
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (!hasAuthorizationBearer(request)) {
-            filterChain.doFilter(request, response);
-            return;
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        try {
+            String jwt = parseJwt(request);
+            if (jwt != null && tokenJWTUtils.validateToken(jwt)) {
+                String username = tokenJWTUtils.getUserNameFromJwtToken(jwt);
+
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+        } catch (Exception e) {
+            logger.error("Cannot set user authentication: {}", e);
         }
-        String token = getAccessToken(request);
-        if (!TokenJWTUtil.validateToken(token)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-        setAuthenticationContext(token, request);
+
         filterChain.doFilter(request, response);
     }
 
-    private boolean hasAuthorizationBearer(HttpServletRequest request) {
-        String header = request.getHeader("Authorization");
-        if (ObjectUtils.isEmpty(header) || !header.startsWith("Bearer")) {
-            return false;
+    private String parseJwt(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+            return headerAuth.substring(7, headerAuth.length());
         }
-        return true;
-    }
 
-    private String getAccessToken(HttpServletRequest request) {
-        String header = request.getHeader("Authorization");
-        String token = header.split(" ")[1].trim();
-        return token;
-    }
-
-    private void setAuthenticationContext(String token, HttpServletRequest request) {
-        UserDetails userDetails = getUserDetails(token);
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);//
-    }
-
-    private UserDetails getUserDetails(String token) {
-        CustomerUserDetail userDetails = new CustomerUserDetail();
-        String[] jwtSubject = tokenJWTUtils.getSubject(token).split(",");
-        User u = new User();
-        u.setId(Integer.valueOf(jwtSubject[0]));
-        u.setEmail(jwtSubject[1]);
-        userDetails.setUser(u);
-        return userDetails;
+        return null;
     }
 }
