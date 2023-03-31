@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRef, useState, useEffect, useContext } from 'react';
 import UserSevices from '../../services/UserSevices';
-import AuthContext from '../../context/AuthProvider';
+import AuthContext from '../../contexts/AuthProvider';
 
 import Axios from '../../api/Axios';
 const LOGIN_URL = '/api/auth/login';
@@ -37,7 +37,7 @@ const Login = () => {
                         'Content-Type': 'application/json',
                         'Access-Control-Allow-Origin': '*'
                     },
-                    // withCredentials: true,
+                    withCredentials: true,
 
                 }
             );
