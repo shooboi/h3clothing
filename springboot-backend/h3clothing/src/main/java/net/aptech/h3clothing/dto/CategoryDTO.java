@@ -11,6 +11,6 @@ import javax.validation.constraints.NotBlank;
 public class CategoryDTO {
     @NotBlank
     private String title;
-    private int parentId;
 
+    private int parentId;
 }

@@ -6,13 +6,13 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class LoginDTO {
-//    @Email
+    @Email
     @NotBlank
     private String email;
 //    @Pattern(regexp = "a-z")
