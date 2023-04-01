@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Getter
@@ -18,8 +16,7 @@ public class UserInfoDTO {
     @Pattern(regexp = "([A-Za-z]+( [A-Za-z]+)+)")
     private String fullName;
 
-    @Size(max=10)
-    @Pattern(regexp = "\\d")
+    @Pattern(regexp = "\\d{10}$", message = "Phone numbers must only contain digits")
     private String phoneNumber;
 
     private String address;
