@@ -2,14 +2,10 @@ package net.aptech.h3clothing.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "products")
 @Entity
 public class Product extends Base {
@@ -22,5 +18,17 @@ public class Product extends Base {
     @Column(name = "price")
     private double price;
 
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private Category category;
 
+    public Product() {
+    }
+
+    public Product(String name, String description, double price, Category category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+    }
 }

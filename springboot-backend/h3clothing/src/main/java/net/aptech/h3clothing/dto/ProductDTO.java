@@ -18,4 +18,6 @@ public class ProductDTO {
 
     @Min(value=0)
     private double price;
+
+    private CategoryDTO category;
 }

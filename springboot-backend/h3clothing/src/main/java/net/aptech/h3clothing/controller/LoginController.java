@@ -57,7 +57,7 @@ public class LoginController {
     public String ok() {
         return "OK";
     }
-
+    @PreAuthorize ("hasAuthority('USER')")
     @GetMapping("/oks")
     public String oks() {
         return "OK";
