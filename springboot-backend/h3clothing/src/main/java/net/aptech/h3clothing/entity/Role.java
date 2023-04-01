@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 public class Role extends Base {
 
-    @Column(name = "roll_name")
+    @Column(name = "role_name")
     private String roleName;
 
     public Role() {
