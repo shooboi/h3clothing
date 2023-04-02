@@ -25,7 +25,7 @@ public class ThumbnailController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addRole(@Valid @RequestBody ThumbnailDTO thumbnailDTO) {
+    public ResponseEntity<?> addThumbnail(@Valid @RequestBody ThumbnailDTO thumbnailDTO) {
         service.save(thumbnailDTO);
         return new ResponseEntity<>(thumbnailDTO, HttpStatus.CREATED);
     }
@@ -42,6 +42,7 @@ public class ThumbnailController {
         service.save(dto);
         return dto;
     }
+
 
     @GetMapping("/get/{id}")
     public ResponseEntity<?> get(@PathVariable("id") Integer id) {

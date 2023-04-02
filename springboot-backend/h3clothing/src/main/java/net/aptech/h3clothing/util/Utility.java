@@ -24,7 +24,7 @@ public class Utility {
 
     //Product
     public ProductDTO convertProductDTOFromProduct(Product product) {
-        return new ProductDTO(product.getName(), product.getDescription(), product.getPrice());
+        return new ProductDTO(product.getName(), product.getDescription(), product.getPrice(), convertCategoryDTOFromCategory(product.getCategory()));
     }
 
     public List<ProductDTO> convertProductDTOFromProducts(List<Product> products) {
@@ -32,7 +32,7 @@ public class Utility {
     }
 
     public Product convertProductFromProductDTO(ProductDTO dto) {
-        return new Product(dto.getName(), dto.getDescription(), dto.getPrice());
+        return new Product(dto.getName(), dto.getDescription(), dto.getPrice(), convertCategoryFromCategoryDTO(dto.getCategory()));
     }
 
     //Category
@@ -94,7 +94,7 @@ public class Utility {
     //Thumbnail_Image
 
     public ThumbnailDTO convertThumbnailDTOFromThumbnail(Thumbnail_Image thumbnailImage) {
-        return new ThumbnailDTO(thumbnailImage.getImageUrl());
+        return new ThumbnailDTO(thumbnailImage.getImageUrl(), convertProductDTOFromProduct(thumbnailImage.getProduct()));
     }
 
     public List<ThumbnailDTO> convertThumbnailDTOFromThumbnails(List<Thumbnail_Image> thumbnailImages) {
@@ -102,7 +102,7 @@ public class Utility {
     }
 
     public Thumbnail_Image convertThumbnailFromThumbnailDTO(ThumbnailDTO dto) {
-        return new Thumbnail_Image(dto.getImageUrl());
+        return new Thumbnail_Image(dto.getImageUrl(), convertProductFromProductDTO(dto.getProductDTO()));
     }
 
     //Order
