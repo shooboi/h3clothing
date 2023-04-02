@@ -22,4 +22,10 @@ public class Thumbnail_Image extends Base {
         this.imageUrl = imageUrl;
         this.product = product;
     }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (imageUrl == null) return null;
+        return "/products-photos/" + this.product.getName() + "/" + imageUrl;
+    }
 }
