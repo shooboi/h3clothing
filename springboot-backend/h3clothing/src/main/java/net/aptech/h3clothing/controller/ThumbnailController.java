@@ -37,7 +37,7 @@ public class ThumbnailController {
     }
 
     @PostMapping(value = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> addThumbnail(@RequestPart("file") MultipartFile file,  @RequestPart("product") String productDTO) throws IOException {
+    public ResponseEntity<?> addThumbnail(@RequestPart("file") MultipartFile[] file,  @RequestPart("product") String productDTO) throws IOException {
             ProductDTO dto = objectMapper.readValue(productDTO, ProductDTO.class);
             ThumbnailDTO thumbnailDTO = new ThumbnailDTO();
             thumbnailDTO.setProduct(dto);
@@ -45,13 +45,19 @@ public class ThumbnailController {
             return new ResponseEntity<>(thumbnailDTO, HttpStatus.CREATED);
     }
 
-    public void setOrigin(MultipartFile multipartFile, ThumbnailDTO dto) throws IOException {
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        dto.setImageUrl(fileName);
-        service.save(dto);
-        System.out.println("ProductName " + dto.getProduct().getName());
-        String uploadDir = "products-photos/" + dto.getProduct().getName();
-        Utility.saveFile(uploadDir, fileName, multipartFile);
+    public void setOrigin(MultipartFile[] multipartFile, ThumbnailDTO dto) throws IOException {
+        if(multipartFile.length > 0){
+            for(MultipartFile file : multipartFile){
+                String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+                dto.setImageUrl(fileName);
+                service.save(dto);
+                System.out.println("ProductName " + dto.getProduct().getName());
+                String uploadDir = "products-photos/" + dto.getProduct().getName();
+                Utility.saveFile(uploadDir, fileName, file);
+            }
+
+        }
+
     }
 
     @PutMapping("/update/{id}")
