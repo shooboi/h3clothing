@@ -109,7 +109,7 @@ public class Utility {
     }
 
     public Thumbnail_Image convertThumbnailFromThumbnailDTO(ThumbnailDTO dto) {
-        return new Thumbnail_Image(dto.getImageUrl(), convertProductFromProductDTO(dto.getProductDTO()));
+        return new Thumbnail_Image(dto.getImageUrl(), convertProductFromProductDTO(dto.getProduct()));
     }
 
     //Order

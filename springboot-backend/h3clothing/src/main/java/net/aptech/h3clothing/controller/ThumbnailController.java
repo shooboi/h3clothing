@@ -1,13 +1,18 @@
 package net.aptech.h3clothing.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.aptech.h3clothing.dto.CategoryDTO;
+import net.aptech.h3clothing.dto.ProductDTO;
 import net.aptech.h3clothing.dto.ThumbnailDTO;
 import net.aptech.h3clothing.service.GenericService;
 import net.aptech.h3clothing.service.serviceImpl.ThumbnailServiceImpl;
 import net.aptech.h3clothing.util.Utility;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +23,9 @@ import java.io.IOException;
 @RequestMapping("/api/thumbnail")
 public class ThumbnailController {
     final GenericService<ThumbnailDTO> service;
+    @Autowired
+    ObjectMapper objectMapper;
+
 
     public ThumbnailController(ThumbnailServiceImpl service) {
         this.service = service;
@@ -28,10 +36,22 @@ public class ThumbnailController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addThumbnail(@Valid @RequestBody ThumbnailDTO thumbnailDTO, @RequestParam("images") MultipartFile multipartFile) throws IOException {
-        setOrigin(multipartFile,thumbnailDTO);
-        return new ResponseEntity<>(thumbnailDTO, HttpStatus.CREATED);
+    @PostMapping(value = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> addThumbnail(@RequestPart("file") MultipartFile file,  @RequestPart("product") String productDTO) throws IOException {
+            ProductDTO dto = objectMapper.readValue(productDTO, ProductDTO.class);
+            ThumbnailDTO thumbnailDTO = new ThumbnailDTO();
+            thumbnailDTO.setProduct(dto);
+            setOrigin(file, thumbnailDTO);
+            return new ResponseEntity<>(thumbnailDTO, HttpStatus.CREATED);
+    }
+
+    public void setOrigin(MultipartFile multipartFile, ThumbnailDTO dto) throws IOException {
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        dto.setImageUrl(fileName);
+        service.save(dto);
+        System.out.println("ProductName " + dto.getProduct().getName());
+        String uploadDir = "products-photos/" + dto.getProduct().getName();
+        Utility.saveFile(uploadDir, fileName, multipartFile);
     }
 
     @PutMapping("/update/{id}")
@@ -60,11 +80,5 @@ public class ThumbnailController {
         return ResponseEntity.ok("Deleted");
     }
 
-    public void setOrigin(MultipartFile multipartFile, ThumbnailDTO dto) throws IOException {
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        dto.setImageUrl(fileName);
-        service.save(dto);
-        String uploadDir = "products-photos/" + dto.getProductDTO().getName();
-        Utility.saveFile(uploadDir, fileName, multipartFile);
-    }
+
 }

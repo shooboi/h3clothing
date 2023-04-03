@@ -11,7 +11,7 @@ public class Thumbnail_Image extends Base {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "product_id")
     private Product product;
 

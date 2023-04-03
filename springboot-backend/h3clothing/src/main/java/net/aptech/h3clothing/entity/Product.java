@@ -18,7 +18,7 @@ public class Product extends Base {
     @Column(name = "price")
     private double price;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "categoryId")
     private Category category;
 

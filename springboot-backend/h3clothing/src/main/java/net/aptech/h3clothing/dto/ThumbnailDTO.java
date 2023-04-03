@@ -1,9 +1,8 @@
 package net.aptech.h3clothing.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -11,9 +10,11 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ThumbnailDTO {
-    @NotBlank
+//    @NotBlank
     private String imageUrl;
 
-    private ProductDTO productDTO;
+    private ProductDTO product;
 }
