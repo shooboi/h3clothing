@@ -18,7 +18,14 @@ public class Thumbnail_Image extends Base {
     public Thumbnail_Image() {
     }
 
-    public Thumbnail_Image(String imageUrl) {
+    public Thumbnail_Image(String imageUrl, Product product) {
         this.imageUrl = imageUrl;
+        this.product = product;
+    }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (imageUrl == null) return null;
+        return "/products-photos/" + this.product.getName() + "/" + imageUrl;
     }
 }
