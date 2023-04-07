@@ -37,8 +37,6 @@ public class LoginController {
     @Autowired
     LoginService service;
 
-
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginDTO) {
         try {
