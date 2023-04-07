@@ -4,6 +4,7 @@ import net.aptech.h3clothing.dto.UserInfDTO;
 import net.aptech.h3clothing.entity.User_Info;
 import net.aptech.h3clothing.repository.UserInf_Repository;
 import net.aptech.h3clothing.service.GenericService;
+import net.aptech.h3clothing.service.UserInfoService;
 import net.aptech.h3clothing.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,13 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserInfServiceImpl implements GenericService<UserInfDTO> {
+public class UserInfServiceImpl implements UserInfoService, GenericService<UserInfDTO> {
     @Autowired
     UserInf_Repository userInfRepository;
 
     @Autowired
     Utility utility;
+
     @Override
     public List<UserInfDTO> getAll() {
         return utility.convertUserInfDTOFromUserInfList(userInfRepository.findAll());
@@ -39,5 +41,11 @@ public class UserInfServiceImpl implements GenericService<UserInfDTO> {
     @Override
     public void remove(int id) {
         userInfRepository.deleteById(id);
+    }
+
+    @Override
+    public UserInfDTO getUserInfoByUserId(String userId) {
+        User_Info userInfo = userInfRepository.findByUser_Id(userId);
+        return new UserInfDTO(userInfo.getFullName(), userInfo.getPhoneNumber(),userInfo.getAddress(),userInfo.isDeleted(),userInfo.getDob());
     }
 }

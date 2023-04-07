@@ -29,6 +29,19 @@ public class Utility {
         return new User(dto.getEmail(), dto.getPassword());
     }
 
+    //Blog
+    public BlogDTO convertBlogDTOFromBlog(Blog blog){
+        return new BlogDTO(blog.getTitle(), blog.getDescription(), convertUserInfDTOFromUserInf(blog.getUser()), blog.isPublished(), blog.getCreatedAt(), blog.getUpdatedAt());
+    }
+
+    public List<BlogDTO> convertBlogDTOFromBlogs(List<Blog> blogs){
+        return blogs.stream().map(this::convertBlogDTOFromBlog).collect(Collectors.toList());
+    }
+
+    public Blog convertBlogFromBlogDTO(BlogDTO dto){
+        return new Blog(dto.getTitle(), dto.getDescription(), convertUserInfFromUserInfDTO(dto.getUser()), dto.isPublished(), dto.getCreatedAt(), dto.getUpdatedAt());
+    }
+
     //Product
     public ProductDTO convertProductDTOFromProduct(Product product) {
         return new ProductDTO(product.getName(), product.getDescription(), product.getPrice(), convertCategoryDTOFromCategory(product.getCategory()));
