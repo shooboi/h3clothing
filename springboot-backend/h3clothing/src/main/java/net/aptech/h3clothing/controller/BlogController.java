@@ -5,6 +5,7 @@ import net.aptech.h3clothing.dto.UserDTO;
 import net.aptech.h3clothing.dto.UserInfDTO;
 import net.aptech.h3clothing.entity.Role;
 import net.aptech.h3clothing.entity.User;
+import net.aptech.h3clothing.security.CustomerUserDetail;
 import net.aptech.h3clothing.service.GenericService;
 import net.aptech.h3clothing.service.UserInfoService;
 import net.aptech.h3clothing.service.serviceImpl.BlogBusImpl;
@@ -46,8 +47,8 @@ public class BlogController {
     public ResponseEntity<?> createBlog(@RequestBody BlogDTO blogRequest, Authentication authentication) {
         if (authentication == null) return new ResponseEntity<>("No legit login authentication found", HttpStatus.NO_CONTENT);
         try {
-            User user = (User) authentication.getPrincipal();
-            UserInfDTO user_info = userInfService.getUserInfoByUserId(user.getUserId());
+            CustomerUserDetail user = (CustomerUserDetail) authentication.getPrincipal();
+            UserInfDTO user_info = userInfService.getUserInfoByUserId(user.getUser().getUserId());
             blogRequest.setUser(user_info);
             blogRequest.setCreatedAt(Instant.now());
             blogRequest.setUpdatedAt(Instant.now());
@@ -63,9 +64,10 @@ public class BlogController {
     public ResponseEntity<?> updateBlog(@RequestBody BlogDTO blogRequest, @PathVariable("id") Integer id, Authentication authentication) {
         if (authentication == null) return new ResponseEntity<>("No legit login authentication found", HttpStatus.NO_CONTENT);
         try {
-            User user = (User) authentication.getPrincipal();
-            if (!user.getRoleSet().contains(new Role("ADMIN"))){
-                UserInfDTO user_info = userInfService.getUserInfoByUserId(user.getUserId());
+            CustomerUserDetail user = (CustomerUserDetail) authentication.getPrincipal();
+
+            if (!user.getUser().getRoleSet().contains(new Role("ADMIN"))){
+                UserInfDTO user_info = userInfService.getUserInfoByUserId(user.getUser().getUserId());
                 if (user_info != service.getById(id).get().getUser())
                     return new ResponseEntity<>("You are not allowed to edit blogs of other users", HttpStatus.UNAUTHORIZED);
             }
@@ -88,9 +90,9 @@ public class BlogController {
     public ResponseEntity<?> delete(@PathVariable("id") Integer id, Authentication authentication) {
         if (authentication == null) return new ResponseEntity<>("No legit login authentication found", HttpStatus.NO_CONTENT);
         try {
-            User user = (User) authentication.getPrincipal();
-            if (!user.getRoleSet().contains(new Role("ADMIN"))){
-                UserInfDTO user_info = userInfService.getUserInfoByUserId(user.getUserId());
+            CustomerUserDetail user = (CustomerUserDetail) authentication.getPrincipal();
+            if (!user.getUser().getRoleSet().contains(new Role("ADMIN"))){
+                UserInfDTO user_info = userInfService.getUserInfoByUserId(user.getUser().getUserId());
                 if (user_info != service.getById(id).get().getUser())
                     return new ResponseEntity<>("Can't delete. You are not the original poster of this blog", HttpStatus.UNAUTHORIZED);
             }
