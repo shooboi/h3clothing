@@ -44,8 +44,8 @@ public class UserInfServiceImpl implements UserInfoService, GenericService<UserI
     }
 
     @Override
-    public UserInfDTO getUserInfoByUserId(String userId) {
+    public User_Info getUserInfoByUserId(Integer userId) {
         User_Info userInfo = userInfRepository.findByUser_Id(userId);
-        return new UserInfDTO(userInfo.getFullName(), userInfo.getPhoneNumber(),userInfo.getAddress(),userInfo.isDeleted(),userInfo.getDob());
+        return userInfo;
     }
 }

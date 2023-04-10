@@ -3,7 +3,9 @@ package net.aptech.h3clothing.service.serviceImpl;
 import net.aptech.h3clothing.dto.BlogDTO;
 import net.aptech.h3clothing.entity.Blog;
 import net.aptech.h3clothing.repository.BlogRepository;
+import net.aptech.h3clothing.repository.UserInf_Repository;
 import net.aptech.h3clothing.service.GenericService;
+import net.aptech.h3clothing.service.UserInfoService;
 import net.aptech.h3clothing.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ public class BlogBusImpl implements GenericService<BlogDTO> {
     BlogRepository blogRepository;
 
     @Autowired
+    UserInf_Repository userInf_repository;
+    @Autowired
     Utility utility;
 
     @Override
@@ -32,7 +36,7 @@ public class BlogBusImpl implements GenericService<BlogDTO> {
         Blog blog = blogRepository.save(utility.convertBlogFromBlogDTO(blogDTO));
         return new BlogDTO(blog.getTitle(),
                 blog.getDescription(),
-                utility.convertUserInfDTOFromUserInf(blog.getUser()),
+                blog.getUser(),
                 blog.isPublished(),
                 blog.getCreatedAt(),
                 blog.getUpdatedAt());
@@ -47,4 +51,5 @@ public class BlogBusImpl implements GenericService<BlogDTO> {
     public void remove(int id) {
         blogRepository.deleteById(id);
     }
+
 }

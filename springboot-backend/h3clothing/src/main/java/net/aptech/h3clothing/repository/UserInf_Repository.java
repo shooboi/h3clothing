@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserInf_Repository extends JpaRepository<User_Info,Integer> {
-    @Query("SELECT ui FROM User_Info ui JOIN ui.user u WHERE u.userId = ?1")
-    User_Info findByUser_Id(String userId);
+    @Query("SELECT ui FROM User_Info ui JOIN ui.user u WHERE u.id = ?1")
+    User_Info findByUser_Id(Integer userId);
 
 }

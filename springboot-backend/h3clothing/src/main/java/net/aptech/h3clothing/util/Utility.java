@@ -2,6 +2,10 @@ package net.aptech.h3clothing.util;
 
 import net.aptech.h3clothing.dto.*;
 import net.aptech.h3clothing.entity.*;
+import net.aptech.h3clothing.repository.UserInf_Repository;
+import net.aptech.h3clothing.service.GenericService;
+import net.aptech.h3clothing.service.UserInfoService;
+import net.aptech.h3clothing.service.serviceImpl.UserInfServiceImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +35,7 @@ public class Utility {
 
     //Blog
     public BlogDTO convertBlogDTOFromBlog(Blog blog){
-        return new BlogDTO(blog.getTitle(), blog.getDescription(), convertUserInfDTOFromUserInf(blog.getUser()), blog.isPublished(), blog.getCreatedAt(), blog.getUpdatedAt());
+        return new BlogDTO(blog.getTitle(), blog.getDescription(), blog.getUser(), blog.isPublished(), blog.getCreatedAt(), blog.getUpdatedAt());
     }
 
     public List<BlogDTO> convertBlogDTOFromBlogs(List<Blog> blogs){
@@ -39,7 +43,7 @@ public class Utility {
     }
 
     public Blog convertBlogFromBlogDTO(BlogDTO dto){
-        return new Blog(dto.getTitle(), dto.getDescription(), convertUserInfFromUserInfDTO(dto.getUser()), dto.isPublished(), dto.getCreatedAt(), dto.getUpdatedAt());
+        return new Blog(dto.getTitle(), dto.getDescription(), dto.getUserInfo(), dto.isPublished(), dto.getCreatedAt(), dto.getUpdatedAt());
     }
 
     //Product
@@ -109,6 +113,10 @@ public class Utility {
 
     public User_Info convertUserInfFromUserInfDTO(UserInfDTO dto) {
         return new User_Info(dto.getFullName(),dto.getPhoneNumber(),dto.getAddress(),dto.isDeleted(),dto.getDob());
+    }
+
+    public User_Info convertUserInfFromInteger(int id, UserInfoService service) {
+        return service.getUserInfoByUserId(id);
     }
 
     //Thumbnail_Image
