@@ -1,18 +1,18 @@
 package net.aptech.h3clothing.controller;
 
 import net.aptech.h3clothing.dto.BlogDTO;
+import net.aptech.h3clothing.dto.RoleDTO;
 import net.aptech.h3clothing.dto.UserDTO;
 import net.aptech.h3clothing.dto.UserInfDTO;
 import net.aptech.h3clothing.entity.Role;
-import net.aptech.h3clothing.entity.User;
 import net.aptech.h3clothing.entity.User_Info;
 import net.aptech.h3clothing.security.CustomerUserDetail;
 import net.aptech.h3clothing.service.GenericService;
 import net.aptech.h3clothing.service.UserInfoService;
 import net.aptech.h3clothing.service.serviceImpl.BlogBusImpl;
+import net.aptech.h3clothing.service.serviceImpl.RoleServiceImpl;
 import net.aptech.h3clothing.service.serviceImpl.UserInfServiceImpl;
 import net.aptech.h3clothing.service.serviceImpl.UserServiceImpl;
-import net.aptech.h3clothing.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +32,6 @@ public class BlogController {
 
     @Autowired
     UserInfoService userInfService;
-
-    @Autowired
-    Utility utility;
 
     public BlogController(BlogBusImpl service, UserServiceImpl userService, UserInfServiceImpl userInfoService){
         this.service = service;
@@ -73,7 +70,7 @@ public class BlogController {
         try {
             CustomerUserDetail user = (CustomerUserDetail) authentication.getPrincipal();
 
-            if (!user.getUser().getRoleSet().contains(new Role("ADMIN"))){
+            if (user.getUser().getRoleSet().stream().noneMatch(role -> role.getRoleName().equals("ADMIN"))){
                 User_Info user_info = userInfService.getUserInfoByUserId(user.getUser().getId());
                 if (user_info.getId() != service.getById(id).get().getUserInfo().getId())
                     return new ResponseEntity<>("You are not allowed to edit blogs of other users", HttpStatus.UNAUTHORIZED);
@@ -98,7 +95,7 @@ public class BlogController {
         if (authentication == null) return new ResponseEntity<>("No legit login authentication found", HttpStatus.NO_CONTENT);
         try {
             CustomerUserDetail user = (CustomerUserDetail) authentication.getPrincipal();
-            if (!user.getUser().getRoleSet().contains(new Role("ADMIN"))){
+            if (user.getUser().getRoleSet().stream().noneMatch(role -> role.getRoleName().equals("ADMIN"))){
                 User_Info user_info = userInfService.getUserInfoByUserId(user.getUser().getId());
                 if (user_info.getId() != service.getById(id).get().getUserInfo().getId())
                     return new ResponseEntity<>("Can't delete. You are not the original poster of this blog", HttpStatus.UNAUTHORIZED);
