@@ -1,8 +1,10 @@
 import React from 'react'
+import { CiSearch } from 'react-icons/ci'
 
 const Main = () => {
     return (
-        <div>Main</div>
+        <div>
+        </div>
     )
 }
 

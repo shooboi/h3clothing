@@ -1,8 +1,14 @@
 import React from 'react'
+import { Header } from '../../components/customer';
+
+
+const pages = [{ 'title': 'About' }];
 
 const About = () => {
     return (
-        <div>About</div>
+        <div>
+            <Header pages={pages} />
+        </div>
     )
 }
 

@@ -1,8 +1,24 @@
 import React from 'react'
-import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from "@syncfusion/ej2-react-grids"
+// import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from "@syncfusion/ej2-react-grids"
 
 import { ordersData, contextMenuItems, ordersGrid } from '../../data/data/dummy'
-import { Header } from '../../components/admin'
+import { Header, Table } from '../../components/admin'
+
+
+const columns = [
+    {
+        name: 'OrderID',
+        selector: row => row.OrderID,
+    },
+    {
+        name: 'CustomerID',
+        selector: row => row.CustomerID,
+    },
+    {
+        name: 'EmployeeID',
+        selector: row => row.EmployeeID,
+    }
+];
 
 const data = [
     { OrderID: 10248, CustomerID: 'VINET', EmployeeID: 5 },
@@ -15,11 +31,13 @@ const Orders = () => {
     const editing = { allowDeleting: true, allowEditing: true };
 
     return (
-        <div className='m-3 md:m-8 p-4 md:p-10 bg-white rounded-3xl'>
+        <>
             <Header category="Page" title="Orders"></Header>
-            <GridComponent dataSource={data} />
-
-        </div>
+            <div className='rounded-3xl border-radious sm:pt-16 m-3 mt-12 md:m-8 p-5 md:p-10 w-auto h-auto max-w-full max-h-full object-contain bg-white'>
+                {/* <GridComponent dataSource={data} /> */}
+                <Table columns={columns} data={data} />
+            </div >
+        </>
     )
 }
 

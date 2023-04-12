@@ -34,22 +34,12 @@ const AdminLayout = ({ children }) => {
                     <Navbar />
 
                 </div>
-                <div>
-                    <Outlet />
-                </div>
+
+                <Outlet />
+
             </div>
         </div>
     )
 }
-
-// const AdminLayoutRoute = ({ component: Component, ...rest }) => {
-//     return (
-//         <Route {...rest} render={matchProps => (
-//             <AdminLayout>
-//                 <Component {...matchProps} />
-//             </AdminLayout>
-//         )} />
-//     )
-// }
 
 export default AdminLayout; 
