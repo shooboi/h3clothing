@@ -36,7 +36,7 @@ public class BlogBusImpl implements GenericService<BlogDTO> {
         Blog blog = blogRepository.save(utility.convertBlogFromBlogDTO(blogDTO));
         return new BlogDTO(blog.getTitle(),
                 blog.getDescription(),
-                blog.getUser(),
+                utility.convertBlogUserDTOFromUserInf(blog.getUser()),
                 blog.isPublished(),
                 blog.getCreatedAt(),
                 blog.getUpdatedAt());
