@@ -3,8 +3,8 @@ module.exports = {
     darkMode: 'class',
     theme: {
         fontFamily: {
-            display: ['Josefin Sans', 'Poppins', 'sans-serif'],
-            body: ['Josefin Sans', 'Poppins', 'sans-serif'],
+            display: ['Poppins', 'Josefin Sans', 'sans-serif'],
+            body: ['Poppins', 'Josefin Sans', 'sans-serif'],
         },
         extend: {
             fontSize: {
@@ -40,7 +40,7 @@ module.exports = {
             },
             backgroundImage: {
                 'hero-pattern':
-                    "url('https://i.ibb.co/MkvLDfb/Rectangle-4389.png')",
+                    "url('/src/data/data/welcome-bg.svg')",
             },
         },
     },
