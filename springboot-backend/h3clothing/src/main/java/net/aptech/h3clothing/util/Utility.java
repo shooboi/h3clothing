@@ -35,7 +35,7 @@ public class Utility {
 
     //Blog
     public BlogDTO convertBlogDTOFromBlog(Blog blog){
-        return new BlogDTO(blog.getTitle(), blog.getDescription(), blog.getUser(), blog.isPublished(), blog.getCreatedAt(), blog.getUpdatedAt());
+        return new BlogDTO(blog.getTitle(), blog.getDescription(), convertBlogUserDTOFromUserInf(blog.getUser()), blog.isPublished(), blog.getCreatedAt(), blog.getUpdatedAt());
     }
 
     public List<BlogDTO> convertBlogDTOFromBlogs(List<Blog> blogs){
@@ -43,7 +43,20 @@ public class Utility {
     }
 
     public Blog convertBlogFromBlogDTO(BlogDTO dto){
-        return new Blog(dto.getTitle(), dto.getDescription(), dto.getUserInfo(), dto.isPublished(), dto.getCreatedAt(), dto.getUpdatedAt());
+        return new Blog(dto.getTitle(), dto.getDescription(), convertUserInfFromBlogUserDTO(dto.getUserInfo()), dto.isPublished(), dto.getCreatedAt(), dto.getUpdatedAt());
+    }
+
+    //BlogUserInfo
+    public BlogUserDTO convertBlogUserDTOFromUserInf(User_Info userInfo) {
+        return new BlogUserDTO(userInfo.getId(), userInfo.getFullName(), userInfo.getPhoneNumber(),userInfo.getAddress(),userInfo.isDeleted(),userInfo.getDob());
+    }
+
+    public List<BlogUserDTO> convertBlogUserDTOFromUserInfList(List<User_Info> userInfos) {
+        return userInfos.stream().map(this::convertBlogUserDTOFromUserInf).collect(Collectors.toList());
+    }
+
+    public User_Info convertUserInfFromBlogUserDTO(BlogUserDTO dto) {
+        return new User_Info(dto.getId(), dto.getFullName(),dto.getPhoneNumber(),dto.getAddress(),dto.isDeleted(),dto.getDob());
     }
 
     //Product
@@ -113,10 +126,6 @@ public class Utility {
 
     public User_Info convertUserInfFromUserInfDTO(UserInfDTO dto) {
         return new User_Info(dto.getFullName(),dto.getPhoneNumber(),dto.getAddress(),dto.isDeleted(),dto.getDob());
-    }
-
-    public User_Info convertUserInfFromInteger(int id, UserInfoService service) {
-        return service.getUserInfoByUserId(id);
     }
 
     //Thumbnail_Image

@@ -13,6 +13,7 @@ import net.aptech.h3clothing.service.serviceImpl.BlogBusImpl;
 import net.aptech.h3clothing.service.serviceImpl.RoleServiceImpl;
 import net.aptech.h3clothing.service.serviceImpl.UserInfServiceImpl;
 import net.aptech.h3clothing.service.serviceImpl.UserServiceImpl;
+import net.aptech.h3clothing.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,9 @@ public class BlogController {
     @Autowired
     UserInfoService userInfService;
 
+    @Autowired
+    Utility utility;
+
     public BlogController(BlogBusImpl service, UserServiceImpl userService, UserInfServiceImpl userInfoService){
         this.service = service;
         this.userService = userService;
@@ -52,7 +56,7 @@ public class BlogController {
             CustomerUserDetail user = (CustomerUserDetail) authentication.getPrincipal();
             User_Info user_info = userInfService.getUserInfoByUserId(user.getUser().getId());
 
-            blogRequest.setUserInfo(user_info);
+            blogRequest.setUserInfo(utility.convertBlogUserDTOFromUserInf(user_info));
             blogRequest.setCreatedAt(Instant.now());
             blogRequest.setUpdatedAt(Instant.now());
             service.save(blogRequest);

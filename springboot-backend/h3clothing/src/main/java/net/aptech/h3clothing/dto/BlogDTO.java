@@ -19,7 +19,7 @@ public class BlogDTO {
 
     private String description;
 
-    private User_Info userInfo;
+    private BlogUserDTO userInfo;
 
     private boolean isPublished;
 

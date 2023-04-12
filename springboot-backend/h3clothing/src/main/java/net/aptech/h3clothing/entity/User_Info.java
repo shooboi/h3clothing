@@ -31,6 +31,14 @@ public class User_Info extends Base {
     public User_Info() {
     }
 
+    public User_Info(int id, String fullName, String phoneNumber, String address, boolean isDeleted, Date dob) {
+        super.setId(id);
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.isDeleted = isDeleted;
+        this.dob = dob;
+    }
     public User_Info(String fullName, String phoneNumber, String address, boolean isDeleted, Date dob) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
