@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FaShoppingBag } from 'react-icons/fa';
-import { MdOnlineCancel, MdOutlineCancel } from 'react-icons/md';
+import { MdOutlineCancel } from 'react-icons/md';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { useStateContext } from "../../contexts/StateContext"
 
@@ -25,7 +25,7 @@ const Sidebar = () => {
                         md:hover:overflow-auto pb-10 '>
             {activeMenu && (<>
                 <div className='flex justify-between items-center'>
-                    <Link to="/" onClick={handleCloseSideBar}
+                    <Link to="/admin/" onClick={handleCloseSideBar}
                         className='items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white, text-slate-900 no-underline'>
                         <FaShoppingBag /> <span>H3Clothing</span>
                     </Link>
@@ -43,7 +43,7 @@ const Sidebar = () => {
                                     {item.title}
                                 </p>
                                 {item.links.map((link) => (
-                                    <NavLink to={`/${link.name}`}
+                                    <NavLink to={`/admin/${link.name}`}
                                         key={link.name
                                         }
                                         onClick={handleCloseSideBar}
