@@ -17,8 +17,12 @@ public class BlogUserDTO extends UserInfDTO{
     @NotBlank
     private int Id;
 
-    public BlogUserDTO(int id, @NotBlank @Pattern(regexp = "([A-Za-z]+( [A-Za-z]+)+)", message = "Your name must only contains upper and lowercase letters") String fullName, @NotBlank @Pattern(regexp = "\\d{10}$", message = "Phone numbers must only contain digits") String phoneNumber, @NotBlank String address, @NotBlank boolean isDeleted, @NotBlank Date dob) {
+    @NotBlank
+    private int userId;
+
+    public BlogUserDTO(int id, int userId, @NotBlank @Pattern(regexp = "([A-Za-z]+( [A-Za-z]+)+)", message = "Your name must only contains upper and lowercase letters") String fullName, @NotBlank @Pattern(regexp = "\\d{10}$", message = "Phone numbers must only contain digits") String phoneNumber, @NotBlank String address, @NotBlank boolean isDeleted, @NotBlank Date dob) {
         super(fullName, phoneNumber, address, isDeleted, dob);
         Id = id;
+        userId = userId;
     }
 }

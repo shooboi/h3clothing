@@ -42,21 +42,21 @@ public class Utility {
         return blogs.stream().map(this::convertBlogDTOFromBlog).collect(Collectors.toList());
     }
 
-    public Blog convertBlogFromBlogDTO(BlogDTO dto){
-        return new Blog(dto.getTitle(), dto.getDescription(), convertUserInfFromBlogUserDTO(dto.getUserInfo()), dto.isPublished(), dto.getCreatedAt(), dto.getUpdatedAt());
+    public Blog convertBlogFromBlogDTO(BlogDTO dto, User user){
+        return new Blog(dto.getTitle(), dto.getDescription(), convertUserInfFromBlogUserDTO(dto.getUserInfo(), user), dto.isPublished(), dto.getCreatedAt(), dto.getUpdatedAt());
     }
 
     //BlogUserInfo
     public BlogUserDTO convertBlogUserDTOFromUserInf(User_Info userInfo) {
-        return new BlogUserDTO(userInfo.getId(), userInfo.getFullName(), userInfo.getPhoneNumber(),userInfo.getAddress(),userInfo.isDeleted(),userInfo.getDob());
+        return new BlogUserDTO(userInfo.getId(), userInfo.getUser().getId(), userInfo.getFullName(), userInfo.getPhoneNumber(),userInfo.getAddress(),userInfo.isDeleted(),userInfo.getDob());
     }
 
     public List<BlogUserDTO> convertBlogUserDTOFromUserInfList(List<User_Info> userInfos) {
         return userInfos.stream().map(this::convertBlogUserDTOFromUserInf).collect(Collectors.toList());
     }
 
-    public User_Info convertUserInfFromBlogUserDTO(BlogUserDTO dto) {
-        return new User_Info(dto.getId(), dto.getFullName(),dto.getPhoneNumber(),dto.getAddress(),dto.isDeleted(),dto.getDob());
+    public User_Info convertUserInfFromBlogUserDTO(BlogUserDTO dto, User user) {
+        return new User_Info(dto.getId(), user, dto.getFullName(),dto.getPhoneNumber(),dto.getAddress(),dto.isDeleted(),dto.getDob());
     }
 
     //Product

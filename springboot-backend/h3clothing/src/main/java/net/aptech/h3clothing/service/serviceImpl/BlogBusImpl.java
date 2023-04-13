@@ -4,6 +4,7 @@ import net.aptech.h3clothing.dto.BlogDTO;
 import net.aptech.h3clothing.entity.Blog;
 import net.aptech.h3clothing.repository.BlogRepository;
 import net.aptech.h3clothing.repository.UserInf_Repository;
+import net.aptech.h3clothing.repository.UserRepository;
 import net.aptech.h3clothing.service.GenericService;
 import net.aptech.h3clothing.service.UserInfoService;
 import net.aptech.h3clothing.util.Utility;
@@ -22,7 +23,7 @@ public class BlogBusImpl implements GenericService<BlogDTO> {
     BlogRepository blogRepository;
 
     @Autowired
-    UserInf_Repository userInf_repository;
+    UserRepository userRepository;
     @Autowired
     Utility utility;
 
@@ -33,7 +34,7 @@ public class BlogBusImpl implements GenericService<BlogDTO> {
 
     @Override
     public BlogDTO save(BlogDTO blogDTO) {
-        Blog blog = blogRepository.save(utility.convertBlogFromBlogDTO(blogDTO));
+        Blog blog = blogRepository.save(utility.convertBlogFromBlogDTO(blogDTO, userRepository.getById(blogDTO.getUserInfo().getUserId())));
         return new BlogDTO(blog.getTitle(),
                 blog.getDescription(),
                 utility.convertBlogUserDTOFromUserInf(blog.getUser()),
