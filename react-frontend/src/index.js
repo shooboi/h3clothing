@@ -4,16 +4,18 @@ import './index.css';
 import App from './App';
 import { AuthProvider } from './contexts/AuthProvider';
 import { ContextProvider } from './contexts/StateContext';
-
+import { ThemeProvider } from '@material-tailwind/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ContextProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </ContextProvider>
+    <ThemeProvider>
+      <ContextProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </ContextProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

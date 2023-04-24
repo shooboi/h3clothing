@@ -37,8 +37,7 @@ public class LoginController {
     @Autowired
     LoginService service;
 
-
-
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginDTO) {
         try {
