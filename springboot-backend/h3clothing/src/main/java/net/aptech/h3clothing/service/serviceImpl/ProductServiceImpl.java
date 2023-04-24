@@ -21,38 +21,42 @@ import java.util.Optional;
 @Service
 @Transactional
 public class ProductServiceImpl implements GenericService<ProductDTO>, ProductService {
-    @Autowired
-    ProductRepository productRepository;
 
-    @Autowired
-    Utility utility;
+  @Autowired
+  ProductRepository productRepository;
+
+  @Autowired
+  Utility utility;
 
 
-    @Override
-    public List<ProductDTO> getAll() {
-        return utility.convertProductDTOFromProducts(productRepository.findAll());
-    }
+  @Override
+  public List<ProductDTO> getAll() {
+    return utility.convertProductDTOFromProducts(productRepository.findAll());
+  }
 
-    @Override
-    public ProductDTO save(ProductDTO productDTO) {
-        Product p = utility.convertProductFromProductDTO(productDTO);
-        productRepository.save(p);
-        return new ProductDTO(p.getName(), p.getDescription(), p.getPrice(), utility.convertCategoryDTOFromCategory(p.getCategory()));
-    }
+  @Override
+  public ProductDTO save(ProductDTO productDTO) {
+    Product p = utility.convertProductFromProductDTO(productDTO);
+    productRepository.save(p);
+    return new ProductDTO(p.getName(), p.getDescription(), p.getPrice(),
+        utility.convertCategoryDTOFromCategory(p.getCategory()));
+  }
 
-    @Override
-    public Optional<ProductDTO> getById(int id) {
-        return Optional.of(utility.convertProductDTOFromProduct(productRepository.getById(id)));
-    }
+  @Override
+  public Optional<ProductDTO> getById(int id) {
+    return Optional.of(utility.convertProductDTOFromProduct(productRepository.getById(id)));
+  }
 
-    @Override
-    public void remove(int id) {
-        productRepository.deleteById(id);
-    }
+  @Override
+  public void remove(int id) {
+    productRepository.deleteById(id);
+  }
 
-    @Override
-    public List<ProductDTO> findAllByPage(String name, int page) {
-        Pageable pageable = PageRequest.of(page - 1, 5);
-        return StringUtils.hasText(name) == false ? utility.convertProductDTOFromProducts(productRepository.findAll(pageable).getContent()) : utility.convertProductDTOFromProducts(productRepository.findAllByPage('%'+ name + '%', pageable).getContent());
-    }
+  @Override
+  public List<ProductDTO> findAllByPage(String name, int page) {
+    Pageable pageable = PageRequest.of(page - 1, 5);
+    return StringUtils.hasText(name) == false ? utility.convertProductDTOFromProducts(
+        productRepository.findAll(pageable).getContent()) : utility.convertProductDTOFromProducts(
+        productRepository.findAllByPage('%' + name + '%', pageable).getContent());
+  }
 }

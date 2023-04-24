@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,11 +17,23 @@ public abstract class Base {
     @Column(name = "id")
     private int id;
 
-    public int getId() {
-        return id;
-    }
+//    @Column(name = "createdAt")
+//    private Timestamp createdAt;
+//
+//    @Column(name = "updateAt")
+//    private Timestamp updateAt;
+//
+//    @PrePersist
+//    public void prePersist(){
+//        this.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+//    }
+//
+//    @PreUpdate
+//    public void preUpdate(){
+//        this.setUpdateAt(Timestamp.valueOf(LocalDateTime.now()));
+//    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
+
+
 }
