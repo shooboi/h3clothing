@@ -1,13 +1,25 @@
-import React from 'react'
-import { CiSearch } from 'react-icons/ci'
-import { Footer } from '../../components/customer'
+import React, { useContext, useEffect } from 'react'
+import { ProductContext } from "../../contexts/ProductContext"
+import { ProductCard } from '../../components/customer';
+import GridView from '../../components/customer/GridView';
+import { CartContext } from '../../contexts/CartContext';
 
 const Main = () => {
+    const { products } = useContext(ProductContext);
+
+    const filterProducts = products.filter(item => {
+        return item.category === "men's clothing" || item.category === "women's clothing"
+    })
+
+    console.log(filterProducts)
     return (
         <div>
-            <div className='h-[100vh]'></div>
-            <Footer />
-        </div >
+            <section className='py-16'>
+                <div className='container mx-auto'>
+                    <GridView products={filterProducts} />
+                </div>
+            </section>
+        </div>
     )
 }
 
