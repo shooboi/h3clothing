@@ -1,9 +1,13 @@
 package net.aptech.h3clothing.controller;
 
 import net.aptech.h3clothing.dto.CategoryDTO;
+import net.aptech.h3clothing.entity.Category;
+import net.aptech.h3clothing.repository.CategoryRepository;
 import net.aptech.h3clothing.service.CategoryService;
 import net.aptech.h3clothing.service.GenericService;
 import net.aptech.h3clothing.service.serviceImpl.CategoryServiceImpl;
+import net.aptech.h3clothing.util.CategoryTree;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +18,8 @@ import javax.validation.Valid;
 @RequestMapping("/api/category")
 public class CategoryController {
 
+  @Autowired
+  CategoryTree categoryTree;
   final GenericService<CategoryDTO> service;
 
   final CategoryService categoryService;
@@ -27,6 +33,13 @@ public class CategoryController {
   public ResponseEntity<?> getAll() {
     return ResponseEntity.ok(service.getAll());
   }
+
+  @GetMapping("/child")
+  public ResponseEntity<?> getChild() {
+    categoryTree.displayCategoryListTree();
+    return ResponseEntity.ok("OK");
+  }
+
 
   @PostMapping("/add")
   public ResponseEntity<?> addRole(@Valid @RequestBody CategoryDTO categoryDTO) {
