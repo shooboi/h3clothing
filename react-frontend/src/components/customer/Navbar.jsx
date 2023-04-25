@@ -132,6 +132,8 @@ const navigation = {
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
         { name: 'Contact', href: '/contact' },
+        { name: 'Product', href: '/product' },
+
     ],
 }
 
@@ -147,31 +149,30 @@ function NavElement({ name, href }) {
 
 const Navbar = () => {
     return (
-        <div className="fixed md:static w-screen h-[90px] bg-white">
-            <nav className="flex justify-between items-center w-full h-full px-10">
-                <div className='flex-1'>
-                    <NavLink to={'/'}>
-                        <img alt="" src={require("../../assets/img/logo/logo.png")} />
-                    </NavLink>
-                </div>
-                <div className='flex-auto'>
-                    <ul className='hidden md:flex h-10 items-center gap-[4vw]'>
-                        {navigation.pages.map((page) => (
-                            <li key={page.name}>
-                                <NavElement name={page.name} href={page.href} />
-                            </li>
-                        ))}
-                        {/* <li> <NavLink to={'/'} className={"hover:text-[#a749ff] flex"}>
+        <nav className="flex justify-between items-center w-full h-full px-10">
+            <div className='flex-1'>
+                <NavLink to={'/'}>
+                    <img className='relavtive w-[200px]' alt="" src={require("../../assets/img/logo/logo-black.png")} />
+                </NavLink>
+            </div>
+            <div className='flex-auto'>
+                <ul className='hidden md:flex h-10 items-center gap-[4vw]'>
+                    {navigation.pages.map((page) => (
+                        <li key={page.name}>
+                            <NavElement name={page.name} href={page.href} />
+                        </li>
+                    ))}
+                    {/* <li> <NavLink to={'/'} className={"hover:text-[#a749ff] flex"}>
                             <span>
                                 Home
                             </span>
                             <RiArrowDropDownLine className='text-xl' />
                         </NavLink> */}
-                        {/* <NavButton title="Home"
+                    {/* <NavButton title="Home"
                                     // customFunc={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}
                                     icon={<RiArrowDropDownLine />} /> */}
 
-                        {/* <ul className="mega-menu mega-menu-padding">
+                    {/* <ul className="mega-menu mega-menu-padding">
                                                 <li>
                                                     <ul>
                                                         <li className="mega-menu-title"><a href="#">Demo Group 01</a></li>
@@ -206,46 +207,46 @@ const Navbar = () => {
                                                     </ul>
                                                 </li>
                                             </ul> */}
-                        {/* </li> */}
-                    </ul>
+                    {/* </li> */}
+                </ul>
 
-                </div>
+            </div>
 
-                <div className="flex justify-end items-center gap-[2vw]">
+            <div className="flex justify-end items-center gap-[2vw]">
 
-                    <div className="flex items-center justify-center p-15">
-                        <a className="hover:text-[#a749ff]" href="#"><CiSearch className='text-2xl' /></a>
-                        {/* <form action="#" className="bg-white relative mb-4 flex w-full flex-wrap items-stretch">
+                <div className="flex items-center justify-center p-15">
+                    <a className="hover:text-[#a749ff]" href="#"><CiSearch className='text-2xl' /></a>
+                    {/* <form action="#" className="bg-white relative mb-4 flex w-full flex-wrap items-stretch">
                             <input type="text" placeholder="Search" className='relative m-0 block w-[1px] min-w-0 flex-auto rounded-l border border-r-0 border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition ease-in-out focus:z-[3] focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200' />
                             <button className="inline-flex transition hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] hover:bg-main-dark-bg bg-[#a749ff] text-white"><CiSearch className='text-2xl' /></button>
                         </form> */}
-                    </div>
-                    <div className="flex justify-start">
-                        <Menu>
-                            <MenuHandler>
-                                <button className="hover:text-[#a749ff]"><RiAccountBoxLine className='text-2xl' /></button>
-                            </MenuHandler>
+                </div>
+                <div className="flex justify-start">
+                    <Menu>
+                        <MenuHandler>
+                            <button className="hover:text-[#a749ff]"><RiAccountBoxLine className='text-2xl' /></button>
+                        </MenuHandler>
 
-                            {/* dropdown */}
-                            <MenuList>
-                                <MenuItem><NavElement name="Login" href="/Auth" /></MenuItem>
-                                <MenuItem><NavElement name="Register" href="" /></MenuItem>
-                                <MenuItem><NavElement name="My Account" href="" /></MenuItem>
-                                <MenuItem><NavElement name="Wishlist" href="" /></MenuItem>
-                            </MenuList>
-                        </Menu>
-                    </div>
-                    {/* wishlist */}
-                    {/* <div className="same-style header-wishlist">
+                        {/* dropdown */}
+                        <MenuList>
+                            <MenuItem><NavElement name="Login" href="/Auth" /></MenuItem>
+                            <MenuItem><NavElement name="Register" href="" /></MenuItem>
+                            <MenuItem><NavElement name="My Account" href="" /></MenuItem>
+                            <MenuItem><NavElement name="Wishlist" href="" /></MenuItem>
+                        </MenuList>
+                    </Menu>
+                </div>
+                {/* wishlist */}
+                {/* <div className="same-style header-wishlist">
                             <a href="wishlist.html"><i className="pe-7s-like" /></a>
                         </div> */}
-                    <div className="same-style cart-wrap">
-                        {/* <button className="icon-cart">
+                <div className="same-style cart-wrap">
+                    {/* <button className="icon-cart">
                                 <i className="pe-7s-shopbag" />
                                 <span className="count-style">02</span>
                             </button> */}
-                        {/* <div className="shopping-cart-content"> */}
-                        {/* <ul>
+                    {/* <div className="shopping-cart-content"> */}
+                    {/* <ul>
                                         <li className="single-shopping-cart">
                                             <div className="shopping-cart-img">
                                                 <a href="#"><img alt src={"../../assets/img/cart/cart-1.png"} /></a>
@@ -281,13 +282,13 @@ const Navbar = () => {
                                         <a className="default-btn" href="cart-page.html">view cart</a>
                                         <a className="default-btn" href="checkout.html">checkout</a>
                                     </div> */}
-                        {/* </div> */}
-                    </div>
-
+                    {/* </div> */}
                 </div>
 
+            </div>
 
-                {/* <div className="mobile-menu-area">
+
+            {/* <div className="mobile-menu-area">
                         <div className="mobile-menu">
                             <nav id="mobile-menu-active">
                                 <ul className="menu-overflow">
@@ -371,8 +372,7 @@ const Navbar = () => {
                             </nav>
                         </div>
                     </div> */}
-            </nav >
-        </div >
+        </nav >
     )
 }
 

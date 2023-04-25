@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Breadcrumbs } from "@material-tailwind/react";
 import { AiFillHome } from 'react-icons/ai'
-const Header = ({ pages }) => {
+const Header = ({ pages, url }) => {
 
     return (
-        <div className="flex justify-center p-10 bg-main-bg">
+        <div className={`flex justify-center p-10 bg-[${url}]`}>
 
             <Breadcrumbs className=''>
                 <Link to="/" className="opacity-60 text-xl">

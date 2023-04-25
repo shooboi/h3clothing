@@ -8,7 +8,8 @@ const CustomerLayout = () => {
 
         <div className={`dark:bg-main-bg bg-white min-h-screen w-full ${activeMenu ? ' md:ml-72'
             : ' static'}`}>
-            <div className='fixed md:static bg-main-bg dark:bg-main-dark-bg nav-bar w-full '>
+
+            <div className='fixed md:static  bg-main-bg dark:bg-main-dark-bg nav-bar h-[90px] w-full '>
                 <Navbar />
             </div>
 
