@@ -6,6 +6,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { AiOutlineEye } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../contexts/CartContext';
+import logo from "../../assets/img/product/pro-1.jpg"
 
 const ProductCard = ({ product }) => {
 
@@ -14,24 +15,24 @@ const ProductCard = ({ product }) => {
 
 
     return (
-        <div className="group max-w-xs my-8 rounded dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
+        <div className="group max-w-sm my-8 rounded dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
             <div className='relative w-[270px] h-[345px] mx-auto flex justify-center items-center '>
 
-                <img className="max-h-[300px] h rounded-t-lg p-8" src={image} alt="product image" />
+                <img className="max-h-[300px] h rounded-t-lg p-8" src={image} alt={title} />
 
-                <div className='flex absolute gap-x-0.5 w-[270px] bottom-0 '>
+                <div className='flex absolute gap-x-0.5 w-[270px] bottom-0 ease-in'>
                     <button>
-                        <div className="flex justify-center items-center text-lg text-white w-12 h-12 bg-lavender group-hover:opacity-100 opacity-0 group-hover:translate-y-0 translate-y-[10px] transition-transform duration-1000 ">
+                        <div className="flex justify-center items-center text-lg text-white w-12 h-12 bg-lavender group-hover:opacity-100 opacity-0 group-hover:translate-y-0 translate-y-[10px] transition-all duration-1000 ">
                             <CiHeart />
                         </div>
                     </button>
                     <button onClick={() => addToCart(id)}>
-                        <div className="flex justify-center items-center text-lg text-white w-[170px] h-12 bg-lavender group-hover:opacity-100 opacity-0 group-hover:translate-y-0 translate-y-[20px] transition-transform duration-1000">
+                        <div className="flex justify-center items-center text-lg text-white w-[170px] h-12 bg-lavender group-hover:opacity-100 opacity-0 group-hover:translate-y-0 translate-y-[20px] transition-all duration-1000">
                             <AiOutlineShoppingCart />Add to cart
                         </div>
                     </button>
                     <button>
-                        <div className="flex justify-center items-center text-lg text-white w-12 h-12 bg-lavender group-hover:opacity-100 opacity-0 group-hover:translate-y-0 translate-y-[30px] transition-transform duration-1000">
+                        <div className="flex justify-center items-center text-lg text-white w-12 h-12 bg-lavender group-hover:opacity-100 opacity-0 group-hover:translate-y-0 translate-y-[30px] transition-all duration-1000">
                             <AiOutlineEye />
                         </div>
                     </button>

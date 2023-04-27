@@ -2,24 +2,33 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Breadcrumbs } from "@material-tailwind/react";
 import { AiFillHome } from 'react-icons/ai'
-const Header = ({ pages, url }) => {
-
+const Header = ({ pages, background }) => {
+    console.log(background);
     return (
-        <div className={`flex justify-center p-10 bg-[${url}]`}>
-
-            <Breadcrumbs className=''>
-                <Link to="/" className="opacity-60 text-xl">
-                    <AiFillHome />
-                </Link>
+        <div className={`${background} bg-center bg-cover relative p-0 bg-no-repeat h-60`}>
+            <div className="container mx-auto flex items-center h-full px-12 gap-3">
+                <div className="flex opacity-60 text-xl">
+                    <Link to="/" >
+                        <AiFillHome />
+                    </Link>
+                </div>
+                <div className='flex opacity-60'>
+                    /
+                </div>
                 {
                     pages.map((e) => (
-                        <Link to={e.page} className="opacity-60 text-xl" key={e.title}>
-                            <span>{e.title} {e?.icon}</span>
+                        <Link to={e.page} className="text-xl">
+                            <span key={e.id}>{e.title} {e?.icon}</span>
                         </Link>
                     ))
                 }
 
-            </Breadcrumbs >
+                {/* <Breadcrumbs className='bg-none'>
+
+
+
+                </Breadcrumbs > */}
+            </div>
         </div>
     )
 }

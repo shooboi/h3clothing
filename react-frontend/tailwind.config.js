@@ -48,7 +48,16 @@ module.exports = withMT({
                 'hero-pattern':
                     "url('/src/data/data/welcome-bg.svg')",
                 'store-logo':
-                    "url('/src/assets/img/logo/logo-black-removebg.png')"
+                    "url('/src/assets/img/logo/logo-black-removebg.png')",
+                'product-banner':
+                    "url('/src/assets/img/banner/shop-banner-fashion.jpg')",
+                'banner':
+                    "url('/src/assets/img/banner/banner.jpg')",
+                'men-hero':
+                    "url('/src/assets/img/slider/men.png')",
+                'story':
+                    "url('/src/assets/img/blog/video-about.png')",
+
             },
         },
     },
