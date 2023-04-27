@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef } from 'react'
 import { Link, NavLink } from 'react-router-dom';
-import { RiArrowDropDownLine } from 'react-icons/ri'
+// import { RiArrowDropDownLine } from 'react-icons/ri'
 import { CiSearch } from 'react-icons/ci'
 import { RiAccountBoxLine } from 'react-icons/ri'
 import { FaBars } from 'react-icons/fa'
@@ -16,6 +16,7 @@ import {
 } from "@material-tailwind/react";
 import { SidebarContext } from '../../contexts/SidebarContext';
 import { AuthContext } from '../../contexts/AuthContext';
+import { CartContext } from '../../contexts/CartContext';
 
 const navigation = {
     categories: [
@@ -143,8 +144,8 @@ const navigation = {
 }
 
 function NavElement({ name, href }) {
-    return (<Link to={href} className={"hover:text-lavender flex"}>
-        <span>
+    return (<Link to={href} className={"hover:text-lavender flex group text-black transition-all duration-300 ease-in-out"}>
+        <span className='bg-left-bottom bg-gradient-to-r from-lavender to-lavender bg-[length:0%_1px] bg-no-repeat group-hover:bg-[length:100%_1px] transition-all duration-500 ease-out'>
             {name}
         </span>
         {/* <RiArrowDropDownLine className='text-xl' /> */}
@@ -155,9 +156,11 @@ function NavElement({ name, href }) {
 const Navbar = () => {
     const { isOpen, setIsOpen } = useContext(SidebarContext);
     const { auth } = useContext(AuthContext);
+    const { itemAmount } = useContext(CartContext)
 
     const [isOpenSearch, setIsOpenSearch] = useState(false);
     const search = useRef(null);
+    // const cartNumber = useState([cart].length);
 
     const closeOpenMenus = (e) => {
         if (search.current && isOpenSearch && !search.current.contains(e.target)) {
@@ -170,7 +173,7 @@ const Navbar = () => {
     return (
         <nav className="flex items-center w-full h-full px-10 justify-between border-b-2 border-gray-300">
             <div className='w-[200px]'>
-                <NavLink to={'/'}>
+                <NavLink to={'/'} >
                     <img className='absolute max-w-[200px] -translate-y-10' alt="" src={require("../../assets/img/logo/logo-black-removebg.png")} />
                 </NavLink>
             </div>
@@ -222,8 +225,15 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className="flex text-xl">
-                    <Link to="/cart" className='hover:text-lavender'>
-                        <AiOutlineShoppingCart />
+                    <Link to="/cart" className='hover:text-lavender group relative inline-flex w-fit'>
+
+                        <AiOutlineShoppingCart>
+                        </AiOutlineShoppingCart>
+                        <div className={`${itemAmount > 0 ? "" : "hidden"} absolute rounded-full bottom-auto left-0 right-auto top-0 bg-black z-50 text-white text-sm text-center -translate-y-1/2 translate-x-4 group-hover:bg-lavender
+                skew-x-0 skew-y-0 scale-x-100 scale-y-100 whitespace-nowrap px-2 py-1 align-baseline leading-none `}>
+                            {itemAmount}
+                        </div>
+
                     </Link>
 
                 </div>

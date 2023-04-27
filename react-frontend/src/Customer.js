@@ -15,11 +15,12 @@ export default function Customer() {
                     <Route path='about' element={<About />} />
                     <Route path='contact' element={<Contact />} />
                     <Route path='product' element={<Product />} />
+
+                    <Route path='cart' element={<Cart />} />
+                    <Route path='favorite' element={<Favorite />} />
+
                     <Route element={<RequiredAuth />}>
                         <Route path='account' element={<Account />} />
-
-                        <Route path='cart' element={<Cart />} />
-                        <Route path='favorite' element={<Favorite />} />
                     </Route>
 
                     <Route path='auth' element={<Authentication />} />

@@ -1,11 +1,11 @@
 import React from 'react'
-import { Footer, Header } from '../../components/customer';
+import { Header } from '../../components/customer';
 
 import { MdLocationOn } from 'react-icons/md';
 import { BsFillTelephoneFill } from "react-icons/bs"
 import { IoIosMail } from 'react-icons/io'
 import { CiClock2 } from 'react-icons/ci';
-const pages = [{ 'title': 'Contact' }];
+const pages = [{ 'id': 1, 'title': 'Contact' }];
 
 const Contact = () => {
     return (

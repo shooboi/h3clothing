@@ -13,7 +13,7 @@ const Hero = () => {
                     <div className='block'>enjoy weekend</div>
                 </div>
 
-                <Link className='py-2 px-4 bg-black text-white'>SHOP NOW</Link>
+                <Link to="/product" className='py-2 px-4 bg-black text-white'>SHOP NOW</Link>
             </div>
 
             <div className="flex-auto bg-men-hero bg-no-repeat bg-contain">

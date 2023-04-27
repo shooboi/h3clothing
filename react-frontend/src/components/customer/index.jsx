@@ -7,8 +7,7 @@ export { default as ProductCard } from './ProductCard'
 export { default as ProductList } from './ProductList'
 export { default as Sidebar } from './Sidebar'
 export { default as Hero } from './Hero'
-
-// export { default as ProductCard } from './ProductCard'
+export { default as Table } from './Table'
 
 // export { default as ProductCard } from './ProductCard'
 

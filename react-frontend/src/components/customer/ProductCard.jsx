@@ -6,7 +6,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { AiOutlineEye } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../contexts/CartContext';
-import logo from "../../assets/img/product/pro-1.jpg"
+// import logo from "../../assets/img/product/pro-1.jpg"
 
 const ProductCard = ({ product }) => {
 
@@ -26,7 +26,7 @@ const ProductCard = ({ product }) => {
                             <CiHeart />
                         </div>
                     </button>
-                    <button onClick={() => addToCart(id)}>
+                    <button onClick={() => addToCart(product, id)}>
                         <div className="flex justify-center items-center text-lg text-white w-[170px] h-12 bg-lavender group-hover:opacity-100 opacity-0 group-hover:translate-y-0 translate-y-[20px] transition-all duration-1000">
                             <AiOutlineShoppingCart />Add to cart
                         </div>

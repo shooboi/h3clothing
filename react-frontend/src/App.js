@@ -5,6 +5,7 @@ import './App.css';
 import Admin from "./Admin";
 import Customer from "./Customer";
 import RequireAuth from "./components/RequiredAuth";
+import ScollIntoView from "./components/ScollIntoView";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Route path='admin/*' element={<Admin />} />
         </Route>
       </Routes>
-
+      <ScollIntoView />
     </BrowserRouter>
 
   );

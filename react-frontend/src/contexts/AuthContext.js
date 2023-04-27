@@ -4,6 +4,7 @@ import React from 'react'
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+    const [token, setToken] = useState();
     const [auth, setAuth] = useState([]);
 
     return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>
