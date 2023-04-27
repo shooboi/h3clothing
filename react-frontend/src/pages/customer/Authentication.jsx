@@ -14,7 +14,7 @@ const Authentication = () => {
 
     return (
         <>
-            <Header pages={pages} url={"../../assets/img/banner/banner-1.jpg"} />
+            <Header pages={pages} background={"bg-banner"} />
 
             <div className='flex justify-center top-0 left-0 text-2xl pt-10'>
                 <button onClick={toggleLogin} disabled={isLogin} className={`transition bg-main-bg ${isLogin ? "text-[#a749ff]" : "text-[#333] "}  font-bold  w-20`} type="submit" >Login</button>
@@ -29,7 +29,6 @@ const Authentication = () => {
 
             </div>
 
-            <Footer></Footer>
         </>
     )
 

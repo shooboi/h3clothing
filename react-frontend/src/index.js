@@ -2,20 +2,31 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { AuthProvider } from './contexts/AuthProvider';
+
 import { ContextProvider } from './contexts/StateContext';
 import { ThemeProvider } from '@material-tailwind/react';
+import ProductProvider from './contexts/ProductContext';
+import SidebarProvider from './contexts/SidebarContext';
+import CartProvider from './contexts/CartContext';
+import AuthProvider from './contexts/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <ThemeProvider>
-      <ContextProvider>
+  <ProductProvider>
+    <SidebarProvider>
+      <CartProvider>
         <AuthProvider>
-          <App />
+          <React.StrictMode>
+            <ThemeProvider>
+              <ContextProvider>
+                <App />
+              </ContextProvider>
+            </ThemeProvider>
+          </React.StrictMode>
         </AuthProvider>
-      </ContextProvider>
-    </ThemeProvider>
-  </React.StrictMode>
+      </CartProvider>
+    </SidebarProvider>
+  </ProductProvider>
+
 );
 

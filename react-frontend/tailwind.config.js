@@ -1,4 +1,5 @@
 const withMT = require("@material-tailwind/react/utils/withMT");
+const colors = require("tailwindcss/colors")
 
 module.exports = withMT({
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -18,6 +19,9 @@ module.exports = withMT({
                 'secondary-dark-bg': '#33373E',
                 'light-gray': '#F7F7F7',
                 'half-transparent': 'rgba(0, 0, 0, 0.5)',
+            },
+            colors: {
+                'lavender': "#a749ff"
             },
             borderWidth: {
                 1: '1px',
@@ -43,6 +47,17 @@ module.exports = withMT({
             backgroundImage: {
                 'hero-pattern':
                     "url('/src/data/data/welcome-bg.svg')",
+                'store-logo':
+                    "url('/src/assets/img/logo/logo-black-removebg.png')",
+                'product-banner':
+                    "url('/src/assets/img/banner/shop-banner-fashion.jpg')",
+                'banner':
+                    "url('/src/assets/img/banner/banner.jpg')",
+                'men-hero':
+                    "url('/src/assets/img/slider/men.png')",
+                'story':
+                    "url('/src/assets/img/blog/video-about.png')",
+
             },
         },
     },

@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import { Link, NavLink } from 'react-router-dom';
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import { CiSearch } from 'react-icons/ci'
 import { RiAccountBoxLine } from 'react-icons/ri'
+import { FaBars } from 'react-icons/fa'
+import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+
 import {
     Menu,
     MenuHandler,
@@ -10,6 +14,8 @@ import {
     MenuItem,
     Button,
 } from "@material-tailwind/react";
+import { SidebarContext } from '../../contexts/SidebarContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const navigation = {
     categories: [
@@ -130,248 +136,102 @@ const navigation = {
     ],
     pages: [
         { name: 'Home', href: '/' },
+        { name: 'Shop', href: '/product' },
         { name: 'About', href: '/about' },
         { name: 'Contact', href: '/contact' },
-        { name: 'Product', href: '/product' },
-
     ],
 }
 
 function NavElement({ name, href }) {
-    return (<NavLink to={href} className={"hover:text-[#a749ff] flex"}>
+    return (<Link to={href} className={"hover:text-lavender flex"}>
         <span>
             {name}
         </span>
         {/* <RiArrowDropDownLine className='text-xl' /> */}
-    </NavLink>);
+    </Link>);
 }
 
 
 const Navbar = () => {
+    const { isOpen, setIsOpen } = useContext(SidebarContext);
+    const { auth } = useContext(AuthContext);
+
+    const [isOpenSearch, setIsOpenSearch] = useState(false);
+    const search = useRef(null);
+
+    const closeOpenMenus = (e) => {
+        if (search.current && isOpenSearch && !search.current.contains(e.target)) {
+            setIsOpenSearch(false)
+        }
+    }
+    window.addEventListener('click', closeOpenMenus);
+
+
     return (
-        <nav className="flex justify-between items-center w-full h-full px-10">
-            <div className='flex-1'>
+        <nav className="flex items-center w-full h-full px-10 justify-between border-b-2 border-gray-300">
+            <div className='w-[200px]'>
                 <NavLink to={'/'}>
-                    <img className='relavtive w-[200px]' alt="" src={require("../../assets/img/logo/logo-black.png")} />
+                    <img className='absolute max-w-[200px] -translate-y-10' alt="" src={require("../../assets/img/logo/logo-black-removebg.png")} />
                 </NavLink>
             </div>
-            <div className='flex-auto'>
-                <ul className='hidden md:flex h-10 items-center gap-[4vw]'>
+            <div className='with'>
+                <ul className='hidden lg:flex h-10 items-center gap-[4vw] justify-center'>
                     {navigation.pages.map((page) => (
                         <li key={page.name}>
                             <NavElement name={page.name} href={page.href} />
                         </li>
                     ))}
-                    {/* <li> <NavLink to={'/'} className={"hover:text-[#a749ff] flex"}>
-                            <span>
-                                Home
-                            </span>
-                            <RiArrowDropDownLine className='text-xl' />
-                        </NavLink> */}
-                    {/* <NavButton title="Home"
-                                    // customFunc={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}
-                                    icon={<RiArrowDropDownLine />} /> */}
-
-                    {/* <ul className="mega-menu mega-menu-padding">
-                                                <li>
-                                                    <ul>
-                                                        <li className="mega-menu-title"><a href="#">Demo Group 01</a></li>
-                                                        <li><a href="index.html">home version 1</a></li>
-                                                        <li><a href="index-2.html">home version 2</a></li>
-                                                        <li><a href="index-3.html">home version 3</a></li>
-                                                        <li><a href="index-4.html">home version 4</a></li>
-                                                        <li><a href="index-5.html">home version 5</a></li>
-                                                        <li><a href="index-6.html">home version 6</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <ul>
-                                                        <li className="mega-menu-title"><a href="#">Demo Group 02</a></li>
-                                                        <li><a href="index-7.html">home version 7</a></li>
-                                                        <li><a href="index-8.html">home version 8</a></li>
-                                                        <li><a href="index-9.html">home version 9</a></li>
-                                                        <li><a href="index-10.html">home version 10</a></li>
-                                                        <li><a href="index-11.html">home version 11</a></li>
-                                                        <li><a href="index-12.html">home version 12</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <ul>
-                                                        <li className="mega-menu-title"><a href="#">Demo Group 03</a></li>
-                                                        <li><a href="index-13.html">home version 13</a></li>
-                                                        <li><a href="index-14.html">home version 14</a></li>
-                                                        <li><a href="index-15.html">home version 15</a></li>
-                                                        <li><a href="index-16.html">home version 16</a></li>
-                                                        <li><a href="index-17.html">home version 17</a></li>
-                                                        <li><a href="index-18.html">home version 18</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul> */}
-                    {/* </li> */}
                 </ul>
 
             </div>
 
-            <div className="flex justify-end items-center gap-[2vw]">
+            <div className="flex justify-end items-center gap-[2vw]" id="search">
 
-                <div className="flex items-center justify-center p-15">
-                    <a className="hover:text-[#a749ff]" href="#"><CiSearch className='text-2xl' /></a>
-                    {/* <form action="#" className="bg-white relative mb-4 flex w-full flex-wrap items-stretch">
-                            <input type="text" placeholder="Search" className='relative m-0 block w-[1px] min-w-0 flex-auto rounded-l border border-r-0 border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition ease-in-out focus:z-[3] focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200' />
-                            <button className="inline-flex transition hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] hover:bg-main-dark-bg bg-[#a749ff] text-white"><CiSearch className='text-2xl' /></button>
-                        </form> */}
+                <div ref={search} className="flex items-center justify-center p-15" >
+                    <a className="hover:text-lavender" onClick={() => setIsOpenSearch(!isOpenSearch)} href="#"><CiSearch className='text-2xl' /></a>
+                    <form action="#" className={`bg-white absolute border mb-4 flex w-[300px] flex-wrap items-stretch p-4  ${isOpenSearch ? "opacity-100 translate-y-[5rem]" : "opacity-0"} translate-y-[4.5rem] transition-all duration-300`}>
+                        <input type="text" placeholder="Search" className='relative m-0 block w-[1px] min-w-0 flex-auto rounded-l border border-r-0 border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition ease-in-out focus:z-[3] focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200' />
+                        <button className="inline-flex transition hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] hover:bg-main-dark-bg bg-lavender text-white p-2 "><CiSearch className='text-2xl' /></button>
+                    </form>
                 </div>
-                <div className="flex justify-start">
-                    <Menu>
-                        <MenuHandler>
-                            <button className="hover:text-[#a749ff]"><RiAccountBoxLine className='text-2xl' /></button>
-                        </MenuHandler>
+                <div className="flex justify-start ">
+                    {auth ?
+                        <Link to="/account" className='flex justify-center'>
+                            {/* link to my account */}
+                            <button className="hover:text-lavender"><RiAccountBoxLine className='text-2xl' /></button>
+                        </Link>
+                        :
+                        <Menu>
+                            {/* dropdown */}
+                            <MenuHandler>
+                                <button className="hover:text-lavender"><RiAccountBoxLine className='text-2xl' /></button>
+                            </MenuHandler>
 
-                        {/* dropdown */}
-                        <MenuList>
-                            <MenuItem><NavElement name="Login" href="/Auth" /></MenuItem>
-                            <MenuItem><NavElement name="Register" href="" /></MenuItem>
-                            <MenuItem><NavElement name="My Account" href="" /></MenuItem>
-                            <MenuItem><NavElement name="Wishlist" href="" /></MenuItem>
-                        </MenuList>
-                    </Menu>
+                            <MenuList>
+                                <MenuItem><NavElement name="Login" href="/Auth" /></MenuItem>
+                                <MenuItem><NavElement name="Register" href="" /></MenuItem>
+                                {/* <MenuItem><NavElement name="My Account" href="" /></MenuItem>
+                            <MenuItem><NavElement name="Wishlist" href="" /></MenuItem> */}
+                            </MenuList>
+                        </Menu>
+                    }
                 </div>
-                {/* wishlist */}
-                {/* <div className="same-style header-wishlist">
-                            <a href="wishlist.html"><i className="pe-7s-like" /></a>
-                        </div> */}
-                <div className="same-style cart-wrap">
-                    {/* <button className="icon-cart">
-                                <i className="pe-7s-shopbag" />
-                                <span className="count-style">02</span>
-                            </button> */}
-                    {/* <div className="shopping-cart-content"> */}
-                    {/* <ul>
-                                        <li className="single-shopping-cart">
-                                            <div className="shopping-cart-img">
-                                                <a href="#"><img alt src={"../../assets/img/cart/cart-1.png"} /></a>
-                                            </div>
-                                            <div className="shopping-cart-title">
-                                                <h4><a href="#">T- Shart &amp; Jeans </a></h4>
-                                                <h6>Qty: 02</h6>
-                                                <span>$260.00</span>
-                                            </div>
-                                            <div className="shopping-cart-delete">
-                                                <a href="#"><i className="fa fa-times-circle" /></a>
-                                            </div>
-                                        </li>
-                                        <li className="single-shopping-cart">
-                                            <div className="shopping-cart-img">
-                                                <a href="#"><img alt src={"../assets/img/cart/cart-2.png"} /></a>
-                                            </div>
-                                            <div className="shopping-cart-title">
-                                                <h4><a href="#">T- Shart &amp; Jeans </a></h4>
-                                                <h6>Qty: 02</h6>
-                                                <span>$260.00</span>
-                                            </div>
-                                            <div className="shopping-cart-delete">
-                                                <a href="#"><i className="fa fa-times-circle" /></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div className="shopping-cart-total">
-                                        <h4>Shipping : <span>$20.00</span></h4>
-                                        <h4>Total : <span className="shop-total">$260.00</span></h4>
-                                    </div>
-                                    <div className="shopping-cart-btn btn-hover text-center">
-                                        <a className="default-btn" href="cart-page.html">view cart</a>
-                                        <a className="default-btn" href="checkout.html">checkout</a>
-                                    </div> */}
-                    {/* </div> */}
+                <div className="flex text-xl">
+                    <Link to="/favorite" className='hover:text-lavender'>
+                        <AiOutlineHeart />
+                    </Link>
+                </div>
+                <div className="flex text-xl">
+                    <Link to="/cart" className='hover:text-lavender'>
+                        <AiOutlineShoppingCart />
+                    </Link>
+
+                </div>
+                <div className="flex">
+                    <div onClick={() => setIsOpen(!isOpen)} className='hover:text-lavender opacity-100 lg:opacity-0'> <FaBars /></div>
                 </div>
 
             </div>
-
-
-            {/* <div className="mobile-menu-area">
-                        <div className="mobile-menu">
-                            <nav id="mobile-menu-active">
-                                <ul className="menu-overflow">
-                                    <li><a href="index.html">HOME</a>
-                                        <ul>
-                                            <li><a href="index.html">home version 1</a></li>
-                                            <li><a href="index-2.html">home version 2</a></li>
-                                            <li><a href="index-3.html">home version 3</a></li>
-                                            <li><a href="index-4.html">home version 4</a></li>
-                                            <li><a href="index-5.html">home version 5</a></li>
-                                            <li><a href="index-6.html">home version 6</a></li>
-                                            <li><a href="index-7.html">home version 7</a></li>
-                                            <li><a href="index-8.html">home version 8</a></li>
-                                            <li><a href="index-9.html">home version 9</a></li>
-                                            <li><a href="index-10.html">home version 10</a></li>
-                                            <li><a href="index-11.html">home version 11</a></li>
-                                            <li><a href="index-12.html">home version 12</a></li>
-                                            <li><a href="index-13.html">home version 13</a></li>
-                                            <li><a href="index-14.html">home version 14</a></li>
-                                            <li><a href="index-15.html">home version 15</a></li>
-                                            <li><a href="index-16.html">home version 16</a></li>
-                                            <li><a href="index-17.html">home version 17</a></li>
-                                            <li><a href="index-18.html">home version 18</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="shop.html">Shop</a>
-                                        <ul>
-                                            <li><a href="#">shop layout</a>
-                                                <ul>
-                                                    <li><a href="shop.html">standard style</a></li>
-                                                    <li><a href="shop-filter.html">Grid filter style</a></li>
-                                                    <li><a href="shop-grid-2-col.html">Grid 2 column</a></li>
-                                                    <li><a href="shop-no-sidebar.html">Grid No sidebar</a></li>
-                                                    <li><a href="shop-grid-fw.html">Grid full wide </a></li>
-                                                    <li><a href="shop-right-sidebar.html">Grid right sidebar</a></li>
-                                                    <li><a href="shop-list.html">list 1 column box </a></li>
-                                                    <li><a href="shop-list-fw.html">list 1 column full wide </a></li>
-                                                    <li><a href="shop-list-fw-2col.html">list 2 column  full wide</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">product details</a>
-                                                <ul>
-                                                    <li><a href="product-details.html">tab style 1</a></li>
-                                                    <li><a href="product-details-2.html">tab style 2</a></li>
-                                                    <li><a href="product-details-3.html">tab style 3</a></li>
-                                                    <li><a href="product-details-4.html">sticky style</a></li>
-                                                    <li><a href="product-details-5.html">gallery style </a></li>
-                                                    <li><a href="product-details-slider-box.html">Slider style</a></li>
-                                                    <li><a href="product-details-affiliate.html">affiliate style</a></li>
-                                                    <li><a href="product-details-6.html">fixed image style </a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="shop.html">Collection</a></li>
-                                    <li><a href="#">Pages</a>
-                                        <ul>
-                                            <li><a href="about.html">about us</a></li>
-                                            <li><a href="cart-page.html">cart page</a></li>
-                                            <li><a href="checkout.html">checkout </a></li>
-                                            <li><a href="wishlist.html">wishlist </a></li>
-                                            <li><a href="my-account.html">my account</a></li>
-                                            <li><a href="login-register.html">login / register </a></li>
-                                            <li><a href="contact.html">contact us </a></li>
-                                            <li><a href="404.html">404 page </a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="blog.html">Blog</a>
-                                        <ul>
-                                            <li><a href="blog.html">blog standard</a></li>
-                                            <li><a href="blog-no-sidebar.html">blog no sidebar</a></li>
-                                            <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                            <li><a href="blog-details.html">blog details 1</a></li>
-                                            <li><a href="blog-details-2.html">blog details 2</a></li>
-                                            <li><a href="blog-details-3.html">blog details 3</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="about.html">About us</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div> */}
         </nav >
     )
 }

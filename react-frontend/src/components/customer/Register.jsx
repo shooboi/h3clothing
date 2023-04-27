@@ -1,13 +1,13 @@
-import { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from '../../contexts/AuthProvider';
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Checkbox, Input, Switch } from '@material-tailwind/react';
+import { Input } from '@material-tailwind/react';
 
 import Axios from '../../api/Axios';
+import useAuth from '../../hooks/useAuth';
 const REGISTER_URL = '/api/auth/register';
 
 const Register = () => {
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
     const emailRef = useRef();
     const errRef = useRef();
 

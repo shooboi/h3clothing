@@ -1,21 +1,21 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Navbar } from '../components/customer'
+import { Footer, Navbar, Sidebar } from '../components/customer'
 const CustomerLayout = () => {
-    const { activeMenu } = true;
 
     return (
 
-        <div className={`dark:bg-main-bg bg-white min-h-screen w-full ${activeMenu ? ' md:ml-72'
-            : ' static'}`}>
-
-            <div className='fixed md:static  bg-main-bg dark:bg-main-dark-bg nav-bar h-[90px] w-full '>
+        <div className={`dark:bg-main-bg bg-white min-h-screen w-full mt-[5.5rem]`}>
+            <div className='fixed bg-main-bg dark:bg-main-dark-bg h-[90px] w-full z-20 top-0 left-0 '>
                 <Navbar />
             </div>
-
-            <div className='h-screen'>
-                <Outlet />
+            <div className=''>
+                <Sidebar />
             </div>
+
+            <Outlet />
+
+            <Footer />
         </div>
     )
 }
