@@ -79,4 +79,9 @@ public class CategoryController {
     return ResponseEntity.ok(categoryService.getAllParentRoot());
   }
 
+  @GetMapping("/getChild/{id}")
+  public ResponseEntity<?> getChildsFromParentId(@PathVariable("id") int id){
+    return ResponseEntity.ok(categoryTree.getAllChildCategories(id));
+  }
+
 }

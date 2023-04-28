@@ -18,61 +18,64 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
-    @Autowired
-    ProductService productService;
-    final GenericService<ProductDTO> service;
 
-    @Autowired
-    Utility utility;
+  @Autowired
+  ProductService productService;
+  final GenericService<ProductDTO> service;
 
-    public ProductController(ProductServiceImpl service) {
-        this.service = service;
-    }
+  @Autowired
+  Utility utility;
 
-    @PreAuthorize("hasAuthority('USER')")
-    @GetMapping("/list")
-    public ResponseEntity<?> getAll(){
-        System.out.println(productService.findAllByPage("H",2));
-        return ResponseEntity.ok(service.getAll());
-    }
+  public ProductController(ProductServiceImpl service) {
+    this.service = service;
+  }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addProduct(@Valid @RequestBody ProductDTO productDTO){
-        service.save(productDTO);
-        return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
-    }
+  @PreAuthorize("hasAuthority('USER')")
+  @GetMapping("/list")
+  public ResponseEntity<?> getAll() {
+    return ResponseEntity.ok(service.getAll());
+  }
 
-    @GetMapping("/page/{index}")
-    public List<ProductDTO> pagination(@PathVariable("index")Integer index, @RequestParam(value = "name",required = false) String name){
-        return productService.findAllByPage(name, index);
-    }
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id")Integer id, @RequestBody ProductDTO productDTO){
-        ProductDTO find = extractProductDTOFromField(id,productDTO);
-        return ResponseEntity.ok(find);
-    }
+  @PostMapping("/add")
+  public ResponseEntity<?> addProduct(@Valid @RequestBody ProductDTO productDTO) {
+    service.save(productDTO);
+    return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
+  }
 
-    public ProductDTO extractProductDTOFromField(Integer id, ProductDTO productDTO){
-        ProductDTO dto = service.getById(id).get();
-        dto.setName(productDTO.getName());
-        dto.setPrice(productDTO.getPrice());
-        dto.setDescription(productDTO.getDescription());
-        dto.setCategory(productDTO.getCategory());
-        service.save(dto);
-        return dto;
-    }
+  @GetMapping("/page/{index}")
+  public List<ProductDTO> pagination(@PathVariable("index") Integer index,
+      @RequestBody ProductDTO dto) {
+    return productService.findAllByPage(dto, index);
+  }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<?> get(@PathVariable("id")Integer id){
-        ProductDTO dto = service.getById(id).get();
-        return ResponseEntity.ok(dto);
-    }
+  @PutMapping("/update/{id}")
+  public ResponseEntity<?> update(@PathVariable("id") Integer id,
+      @RequestBody ProductDTO productDTO) {
+    ProductDTO find = extractProductDTOFromField(id, productDTO);
+    return ResponseEntity.ok(find);
+  }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id")Integer id){
-        service.remove(id);
-        return ResponseEntity.ok("Deleted");
-    }
+  public ProductDTO extractProductDTOFromField(Integer id, ProductDTO productDTO) {
+    ProductDTO dto = service.getById(id).get();
+    dto.setName(productDTO.getName());
+    dto.setPrice(productDTO.getPrice());
+    dto.setDescription(productDTO.getDescription());
+    dto.setCategory(productDTO.getCategory());
+    service.save(dto);
+    return dto;
+  }
+
+  @GetMapping("/get/{id}")
+  public ResponseEntity<?> get(@PathVariable("id") Integer id) {
+    ProductDTO dto = service.getById(id).get();
+    return ResponseEntity.ok(dto);
+  }
+
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+    service.remove(id);
+    return ResponseEntity.ok("Deleted");
+  }
 
 
 }

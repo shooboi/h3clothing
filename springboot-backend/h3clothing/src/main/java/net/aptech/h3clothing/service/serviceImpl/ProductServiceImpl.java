@@ -38,7 +38,7 @@ public class ProductServiceImpl implements GenericService<ProductDTO>, ProductSe
   public ProductDTO save(ProductDTO productDTO) {
     Product p = utility.convertProductFromProductDTO(productDTO);
     productRepository.save(p);
-    return new ProductDTO(p.getName(), p.getDescription(), p.getPrice(),
+    return new ProductDTO(p.getId(), p.getName(), p.getDescription(), p.getPrice(),
         utility.convertCategoryDTOFromCategory(p.getCategory()));
   }
 
@@ -47,16 +47,18 @@ public class ProductServiceImpl implements GenericService<ProductDTO>, ProductSe
     return Optional.of(utility.convertProductDTOFromProduct(productRepository.getById(id)));
   }
 
+
   @Override
   public void remove(int id) {
     productRepository.deleteById(id);
   }
 
   @Override
-  public List<ProductDTO> findAllByPage(String name, int page) {
+  public List<ProductDTO> findAllByPage(ProductDTO dto, int page) {
     Pageable pageable = PageRequest.of(page - 1, 5);
-    return StringUtils.hasText(name) == false ? utility.convertProductDTOFromProducts(
-        productRepository.findAll(pageable).getContent()) : utility.convertProductDTOFromProducts(
-        productRepository.findAllByPage('%' + name + '%', pageable).getContent());
+    List<Product> products = productRepository.findAllByPage(dto.getName(),
+        Optional.ofNullable(dto.getId()),
+        dto.getDescription(), Optional.ofNullable(dto.getPrice()), pageable).getContent();
+    return utility.convertProductDTOFromProducts(products);
   }
 }
