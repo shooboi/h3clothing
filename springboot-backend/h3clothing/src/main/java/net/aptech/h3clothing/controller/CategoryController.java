@@ -1,5 +1,6 @@
 package net.aptech.h3clothing.controller;
 
+import java.util.List;
 import net.aptech.h3clothing.dto.CategoryDTO;
 import net.aptech.h3clothing.entity.Category;
 import net.aptech.h3clothing.repository.CategoryRepository;
@@ -31,14 +32,14 @@ public class CategoryController {
 
   @GetMapping("/list")
   public ResponseEntity<?> getAll() {
-    return ResponseEntity.ok(service.getAll());
+    return ResponseEntity.ok(categoryTree.displayCategoryListTree());
   }
 
-  @GetMapping("/child")
-  public ResponseEntity<?> getChild() {
-    categoryTree.displayCategoryListTree();
-    return ResponseEntity.ok("OK");
-  }
+//  @GetMapping("/child")
+//  public List<CategoryDTO> getChild() {
+//    return categoryTree.displayCategoryListTree();
+//
+//  }
 
 
   @PostMapping("/add")
@@ -80,7 +81,7 @@ public class CategoryController {
   }
 
   @GetMapping("/getChild/{id}")
-  public ResponseEntity<?> getChildsFromParentId(@PathVariable("id") int id){
+  public ResponseEntity<?> getChildsFromParentId(@PathVariable("id") int id) {
     return ResponseEntity.ok(categoryTree.getAllChildCategories(id));
   }
 

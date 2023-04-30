@@ -1,5 +1,6 @@
 package net.aptech.h3clothing.dto;
 
+import java.util.List;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -13,8 +14,18 @@ public class CategoryDTO {
     private String title;
     private int parentId;
 
-    public CategoryDTO(String title, int parentId) {
+    private List<CategoryDTO> child;
+
+    public CategoryDTO(int id, String title, int parentId) {
+        this.id = id;
         this.title = title;
         this.parentId = parentId;
+    }
+
+    public CategoryDTO(int id, String title, int parentId, List<CategoryDTO> child) {
+        this.id = id;
+        this.title = title;
+        this.parentId = parentId;
+        this.child = child;
     }
 }

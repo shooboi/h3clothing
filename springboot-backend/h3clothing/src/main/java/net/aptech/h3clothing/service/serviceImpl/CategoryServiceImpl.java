@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements GenericService<CategoryDTO>, Categor
   public CategoryDTO save(CategoryDTO categoryDTO) {
     Category category = categoryRepository.save(
         utility.convertCategoryFromCategoryDTO(categoryDTO));
-    return new CategoryDTO(category.getTitle(), category.getParentId());
+    return new CategoryDTO(category.getId(),category.getTitle(), category.getParentId());
   }
 
   @Override
