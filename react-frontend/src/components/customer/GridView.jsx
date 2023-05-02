@@ -1,28 +1,7 @@
 import React from 'react'
 import ProductCard from './ProductCard'
 
-const test = [
-    {
-        "id": "1",
-        'title': 'test'
-    },
-    {
-        "id": "2",
-        'title': 'test'
-    },
-    {
-        "id": "3",
-        'title': 'test'
-    },
-    {
-        "id": "4",
-        'title': 'test'
-    },
-    {
-        "id": "5",
-        'title': 'test'
-    }
-]
+
 
 const GridView = ({ products = test }) => {
     return (

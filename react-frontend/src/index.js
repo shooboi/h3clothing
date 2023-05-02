@@ -9,6 +9,7 @@ import ProductProvider from './contexts/ProductContext';
 import SidebarProvider from './contexts/SidebarContext';
 import CartProvider from './contexts/CartContext';
 import AuthProvider from './contexts/AuthContext';
+import FilterProvider from './contexts/FilterContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,13 +17,13 @@ root.render(
     <SidebarProvider>
       <CartProvider>
         <AuthProvider>
-          <React.StrictMode>
+          <FilterProvider>
             <ThemeProvider>
               <ContextProvider>
                 <App />
               </ContextProvider>
             </ThemeProvider>
-          </React.StrictMode>
+          </FilterProvider>
         </AuthProvider>
       </CartProvider>
     </SidebarProvider>

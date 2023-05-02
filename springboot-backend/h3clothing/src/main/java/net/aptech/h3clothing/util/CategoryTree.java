@@ -1,7 +1,11 @@
 package net.aptech.h3clothing.util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import net.aptech.h3clothing.dto.CategoryDTO;
 import net.aptech.h3clothing.entity.Category;
 import net.aptech.h3clothing.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +19,13 @@ public class CategoryTree {
 
   public void displayCategoryListTree() {
     List<Category> categories = repository.findAll();
+    List<CategoryDTO> categoryDTOS
     for (Category category : categories) {
       if (category.getParentId() == 0) {
-        displayCategoryChildTree(category, 0);
+       listDTO.add(displayCategoryChildTree(category, 0));
       }
     }
   }
-
 
   public void displayCategoryChildTree(Category category, int level) {
     // Hiển thị tên của category ở mức độ hiện tại
