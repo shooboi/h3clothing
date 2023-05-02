@@ -7,5 +7,5 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface ProductService {
-    List<ProductDTO> findAllByPage(String name, int page);
+    List<ProductDTO> findAllByPage(ProductDTO dto, int page);
 }

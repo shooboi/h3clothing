@@ -1,5 +1,8 @@
 package net.aptech.h3clothing.entity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Data;
 
 import javax.persistence.Column;

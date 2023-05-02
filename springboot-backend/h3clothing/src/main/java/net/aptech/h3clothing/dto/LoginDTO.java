@@ -1,5 +1,6 @@
 package net.aptech.h3clothing.dto;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,8 @@ public class LoginDTO {
 //    @Pattern(regexp = "a-z")
     @NotBlank
     private String password;
+
+    private List<String> roles;
 
     public String getEmail() {
         return email;
