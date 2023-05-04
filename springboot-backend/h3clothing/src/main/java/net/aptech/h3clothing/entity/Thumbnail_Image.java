@@ -18,9 +18,8 @@ public class Thumbnail_Image extends Base {
     public Thumbnail_Image() {
     }
 
-    public Thumbnail_Image(String imageUrl, Product product) {
+    public Thumbnail_Image(String imageUrl) {
         this.imageUrl = imageUrl;
-        this.product = product;
     }
 
     @Transient

@@ -15,6 +15,4 @@ import javax.validation.constraints.NotBlank;
 public class ThumbnailDTO {
 //    @NotBlank
     private String imageUrl;
-
-    private ProductDTO product;
 }

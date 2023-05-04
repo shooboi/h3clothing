@@ -1,6 +1,8 @@
 package net.aptech.h3clothing.controller;
 
+import java.io.IOException;
 import net.aptech.h3clothing.dto.ProductDTO;
+import net.aptech.h3clothing.dto.ThumbnailDTO;
 import net.aptech.h3clothing.entity.Product;
 import net.aptech.h3clothing.service.GenericService;
 import net.aptech.h3clothing.service.ProductService;
@@ -8,12 +10,15 @@ import net.aptech.h3clothing.service.serviceImpl.ProductServiceImpl;
 import net.aptech.h3clothing.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/product")
@@ -36,11 +41,14 @@ public class ProductController {
     return ResponseEntity.ok(service.getAll());
   }
 
-  @PostMapping("/add")
-  public ResponseEntity<?> addProduct(@Valid @RequestBody ProductDTO productDTO) {
-    service.save(productDTO);
+  @PostMapping(name = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,
+      MediaType.APPLICATION_JSON_VALUE})
+  public ResponseEntity<?> addProduct(@Valid @RequestBody ProductDTO productDTO,
+      @RequestPart("file") MultipartFile[] file) throws IOException {
+    setOrigin(file, productDTO);
     return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
   }
+
 
   @GetMapping("/page/{index}")
   public List<ProductDTO> pagination(@PathVariable("index") Integer index,
@@ -78,4 +86,21 @@ public class ProductController {
   }
 
 
+  public void setOrigin(MultipartFile[] multipartFile, ProductDTO dto) throws IOException {
+    if (multipartFile.length > 0) {
+      for (MultipartFile file : multipartFile) {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//        dto.setImageUrl(fileName);
+//        service.save(dto);
+//        System.out.println("ProductName " + dto.getProduct().getName());
+//        String uploadDir = "products-photos/" + dto.getProduct().getName();
+        String uploadDir = "products-photos/" + dto.getName();
+        Utility.saveFile(uploadDir, fileName, file);
+        service.save(dto);
+      }
+
+    }
+
+
+  }
 }
