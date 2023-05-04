@@ -39,7 +39,7 @@ public class ProductServiceImpl implements GenericService<ProductDTO>, ProductSe
     Product p = utility.convertProductFromProductDTO(productDTO);
     productRepository.save(p);
     return new ProductDTO(p.getId(), p.getName(), p.getDescription(), p.getPrice(),
-        utility.convertCategoryDTOFromCategory(p.getCategory()));
+        utility.convertCategoryDTOFromCategory(p.getCategory()),utility.convertThumbnailDTOFromThumbnails(p.getImageList()));
   }
 
   @Override

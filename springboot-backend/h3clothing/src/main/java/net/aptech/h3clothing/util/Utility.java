@@ -33,7 +33,8 @@ public class Utility {
   //Product
   public ProductDTO convertProductDTOFromProduct(Product product) {
     return new ProductDTO(product.getId(), product.getName(), product.getDescription(),
-        product.getPrice(), convertCategoryDTOFromCategory(product.getCategory()));
+        product.getPrice(), convertCategoryDTOFromCategory(product.getCategory()),
+        convertThumbnailDTOFromThumbnails(product.getImageList()));
   }
 
   public List<ProductDTO> convertProductDTOFromProducts(List<Product> products) {
@@ -42,7 +43,7 @@ public class Utility {
 
   public Product convertProductFromProductDTO(ProductDTO dto) {
     return new Product(dto.getName(), dto.getDescription(), dto.getPrice(),
-        convertCategoryFromCategoryDTO(dto.getCategory()));
+        convertCategoryFromCategoryDTO(dto.getCategory()), convertThumbnailsFromThumbnailsDTO(dto.getImageUrl()));
   }
 
   //Category
@@ -51,11 +52,12 @@ public class Utility {
     return new CategoryDTO(category.getId(), category.getTitle(), category.getParentId());
   }
 
-  public CategoryDTO convertCategoryDTOFromCategoryParent(Category category, List<Category> categories ) {
-    List<Category> find = categories.stream().filter(t->t.getParentId() == category.getId()).collect(Collectors.toList());
+  public CategoryDTO convertCategoryDTOFromCategoryParent(Category category,
+      List<Category> categories) {
+    List<Category> find = categories.stream().filter(t -> t.getParentId() == category.getId())
+        .collect(Collectors.toList());
     return new CategoryDTO(category.getId(), category.getTitle(), category.getParentId());
   }
-
 
 
   public List<CategoryDTO> convertCategoryDTOFromCategories(List<Category> categories) {
@@ -66,7 +68,6 @@ public class Utility {
   public Category convertCategoryFromCategoryDTO(CategoryDTO dto) {
     return new Category(dto.getTitle(), dto.getParentId());
   }
-
 
   //Role
 
@@ -115,8 +116,7 @@ public class Utility {
   //Thumbnail_Image
 
   public ThumbnailDTO convertThumbnailDTOFromThumbnail(Thumbnail_Image thumbnailImage) {
-    return new ThumbnailDTO(thumbnailImage.getImageUrl(),
-        convertProductDTOFromProduct(thumbnailImage.getProduct()));
+    return new ThumbnailDTO(thumbnailImage.getImageUrl());
   }
 
   public List<ThumbnailDTO> convertThumbnailDTOFromThumbnails(
@@ -125,8 +125,13 @@ public class Utility {
         .collect(Collectors.toList());
   }
 
+  public List<Thumbnail_Image> convertThumbnailsFromThumbnailsDTO(List<ThumbnailDTO> thumbnailDTOS) {
+    return thumbnailDTOS.stream().map(this::convertThumbnailFromThumbnailDTO)
+        .collect(Collectors.toList());
+  }
+
   public Thumbnail_Image convertThumbnailFromThumbnailDTO(ThumbnailDTO dto) {
-    return new Thumbnail_Image(dto.getImageUrl(), convertProductFromProductDTO(dto.getProduct()));
+    return new Thumbnail_Image(dto.getImageUrl());
   }
 
   //Order

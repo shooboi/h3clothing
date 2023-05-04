@@ -1,6 +1,7 @@
 package net.aptech.h3clothing.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,8 @@ public class ProductDTO {
     private Double price;
 
     private CategoryDTO category;
+
+    private List<ThumbnailDTO> imageUrl;
 
 
 }

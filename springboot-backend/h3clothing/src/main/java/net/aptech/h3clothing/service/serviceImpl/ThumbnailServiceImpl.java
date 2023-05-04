@@ -28,8 +28,9 @@ public class ThumbnailServiceImpl implements GenericService<ThumbnailDTO> {
 
     @Override
     public ThumbnailDTO save(ThumbnailDTO thumbnailDTO) {
-        Thumbnail_Image ti = thumbnailRepository.save(utility.convertThumbnailFromThumbnailDTO(thumbnailDTO));
-        return new ThumbnailDTO(ti.getImageUrl(),thumbnailDTO.getProduct());
+//        Thumbnail_Image ti = thumbnailRepository.save(utility.convertThumbnailFromThumbnailDTO(thumbnailDTO));
+//        return new ThumbnailDTO(ti.getImageUrl(),thumbnailDTO.getProduct());
+        return null;
     }
 
     @Override
