@@ -132,7 +132,7 @@ const Login = () => {
 
                     <Link className="relative m-3 text-center p-2 " to="#">Forgot Password</Link>
 
-                    <button className="transition bg-main-bg text-[#333] hover:text-white hover:bg-[#a749ff] w-20 p-2 px-3 border-opacity-5 border-gray-200" type="submit" >Login</button>
+                    <button className="transition bg-main-bg text-[#333] hover:text-white hover:bg-[#a749ff] w-20 p-2 px-3 border border-gray-300" type="submit" >Login</button>
 
                 </form>
                 <div className='text-red-600 pt-10'>

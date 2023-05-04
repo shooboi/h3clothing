@@ -46,17 +46,21 @@ module.exports = withMT({
             },
             backgroundImage: {
                 'hero-pattern':
-                    "url('/src/data/data/welcome-bg.svg')",
+                    "url('/public/assets/img/admin/welcome-bg.svg')",
+                'avatar':
+                    "url('/public/assets/img/admin/avatar.jpg')",
+
+
                 'store-logo':
-                    "url('/src/assets/img/logo/logo-black-removebg.png')",
+                    "url('/public/assets/img/logo/logo-black-removebg.png')",
                 'product-banner':
-                    "url('/src/assets/img/banner/shop-banner-fashion.jpg')",
+                    "url('/public/assets/img/banner/shop-banner-fashion.jpg')",
                 'banner':
-                    "url('/src/assets/img/banner/banner.jpg')",
+                    "url('/public/assets/img/banner/banner.jpg')",
                 'men-hero':
-                    "url('/src/assets/img/slider/men.png')",
+                    "url('/public/assets/img/slider/men.png')",
                 'story':
-                    "url('/src/assets/img/blog/video-about.png')",
+                    "url('/public/assets/img/blog/video-about.png')",
 
             },
         },

@@ -171,10 +171,10 @@ const Navbar = () => {
 
 
     return (
-        <nav className="flex items-center w-full h-full px-10 justify-between border-b-2 border-gray-300">
+        <nav className="flex items-center w-full h-full px-3 md:px-10 justify-between border-b-2 border-gray-300">
             <div className='w-[200px]'>
                 <NavLink to={'/'} >
-                    <img className='absolute max-w-[200px] -translate-y-10' alt="" src={require("../../assets/img/logo/logo-black-removebg.png")} />
+                    <img className='max-w-[200px]' alt="" src={require("../../assets/img/logo/logo-black-removebg.png")} />
                 </NavLink>
             </div>
             <div className='with'>

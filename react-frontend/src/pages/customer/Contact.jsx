@@ -5,9 +5,21 @@ import { MdLocationOn } from 'react-icons/md';
 import { BsFillTelephoneFill } from "react-icons/bs"
 import { IoIosMail } from 'react-icons/io'
 import { CiClock2 } from 'react-icons/ci';
+import GoogleMapReact from "google-map-react"
+
 const pages = [{ 'id': 1, 'title': 'Contact' }];
 
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
+
 const Contact = () => {
+    const defaultProps = {
+        center: {
+            lat: 21.0357136,
+            lng: 105.8174981
+        },
+        zoom: 11
+    };
     return (
         <div>
             <Header pages={pages} background={"bg-banner"} />
@@ -73,7 +85,15 @@ const Contact = () => {
                     </div>
 
                 </div>
+                <div className='h-[70vh] w-full'>
+                    <GoogleMapReact
+                        bootstrapURLKeys={{ key: "" }}
+                        defaultCenter={defaultProps.center}
+                        defaultZoom={defaultProps.zoom}
+                    >
+                    </GoogleMapReact>
 
+                </div>
             </section>
         </div>
     )

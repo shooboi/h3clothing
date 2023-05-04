@@ -114,15 +114,15 @@ const Register = () => {
                                 required
                             />
                         </div>
-                        <div className="col-span-2">
-                            <button className=" transition bg-main-bg text-[#333] hover:text-white hover:bg-[#a749ff] w-20 p-2 " type="submit" >Register</button>
+                        <div className="col-span-2 relative">
+                            <button className=" transition bg-main-bg text-[#333] hover:text-white hover:bg-[#a749ff] w-24 p-2 border border-gray-300" type="submit" >Register</button>
                         </div>
                         <p>
-                            Already registered?<br />
-                            <span className="line">
-                                {/*put router link here*/}
+                            <input className='rounded-none border border-spacing-2' type="checkbox" id="" />
+                            <span className='p-2'>Receive news from us.</span><br />
+                            {/* <span className="hover:text-lavender">
                                 <Link to="#">Sign In</Link>
-                            </span>
+                            </span> */}
                         </p>
                     </form>
                     <div className='text-red-600 pt-10'>

@@ -6,7 +6,6 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { AiOutlineEye } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../contexts/CartContext';
-// import logo from "../../assets/img/product/pro-1.jpg"
 
 const ProductCard = ({ product }) => {
 
@@ -18,7 +17,7 @@ const ProductCard = ({ product }) => {
         <div className="group max-w-sm my-8 rounded dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
             <div className='relative w-[270px] h-[345px] mx-auto flex justify-center items-center '>
 
-                <img className="max-h-[300px] h rounded-t-lg p-8" src={image} alt={title} />
+                <img className="max-h-[300px] rounded-t-lg p-4" src={image} alt={title} />
 
                 <div className='flex absolute gap-x-0.5 w-[270px] bottom-0 ease-in'>
                     <button>
@@ -40,12 +39,12 @@ const ProductCard = ({ product }) => {
             </div>
 
 
-            <div className="px-5 pb-5">
-                <div className='h-20'>
-                    <Link to={`/product`} >
-                        <h3 className="hover:text-lavender text-gray-900 text-lg tracking-tight dark:text-white">{title}</h3>
-                    </Link>
-                </div>
+            <div className="flex flex-col px-5 pb-5">
+
+                <Link className='h-12 md:h-20 overflow-hidden text-ellipsis   ' to={`/singleproduct/${id}`} >
+                    <h3 className="inline-block hover:text-lavender text-gray-900 text-lg tracking-tight dark:text-white">{title}</h3>
+                </Link>
+
                 <div className="flex items-center mt-2.5 mb-5">
                     <AiFillStar className='w-5 h-5 text-yellow-300' />
                     <AiFillStar className='w-5 h-5 text-yellow-300' />
@@ -55,7 +54,7 @@ const ProductCard = ({ product }) => {
                     <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
                 </div>
                 <div className="flex items-center justify-between">
-                    <span className="text-3xl font-bold text-gray-900 dark:text-white">$49.99</span>
+                    <span className="text-3xl font-bold text-gray-900 dark:text-white">${price}</span>
                 </div>
             </div>
 
