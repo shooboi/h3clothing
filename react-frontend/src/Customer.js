@@ -6,6 +6,13 @@ import { NoPage } from './pages/others/404';
 import Unauthorize from './pages/others/403';
 import RequiredAuth from './components/RequiredAuth'
 
+
+const ROLES = [
+    'ADMIN',
+    'USER',
+    "EDITOR"
+]
+
 export default function Customer() {
     return (
         <div className="customer overflow-hidden">
@@ -21,7 +28,7 @@ export default function Customer() {
                     <Route path='cart' element={<Cart />} />
                     <Route path='favorite' element={<Favorite />} />
 
-                    <Route element={<RequiredAuth />}>
+                    <Route element={<RequiredAuth allowedRoles={ROLES} />}>
                         <Route path='account' element={<Account />} />
                     </Route>
 
@@ -30,7 +37,7 @@ export default function Customer() {
                     <Route path="*" element={<NoPage />} />
                 </Route>
             </Routes>
-        </div>
+        </div >
 
     )
 }

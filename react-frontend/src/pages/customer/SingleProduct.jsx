@@ -7,7 +7,6 @@ const background = "bg-product-banner"
 
 const SingleProduct = () => {
     const { id } = useParams();
-    console.log(id);
     return (
         <div>
             <Header pages={pages} background={background} />

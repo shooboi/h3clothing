@@ -30,7 +30,6 @@ public class ProductController {
     this.service = service;
   }
 
-  @PreAuthorize("hasAuthority('USER')")
   @GetMapping("/list")
   public ResponseEntity<?> getAll() {
     return ResponseEntity.ok(service.getAll());

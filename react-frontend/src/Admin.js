@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { NoPage } from './pages/others/404';
 import Unauthorize from './pages/others/403';
 import AdminLayout from './layouts/AdminLayout'
-import { Dashboard, Orders, Calendar, Employees, Customers, Kanban, ColorPicker, Editor } from './pages/admin';
+import { Dashboard, Orders, Calendar, Employees, Customers, Kanban, ColorPicker, Editor, Products, ProductForm, OrderForm } from './pages/admin';
 
 export default function Admin() {
     return (
@@ -17,7 +17,14 @@ export default function Admin() {
 
                     <Route path='dashboard' element={<Dashboard />} />
                     {/* pages */}
+                    <Route path='products' element={<Products />} />
+                    <Route path='product/add' element={<ProductForm />} />
+                    <Route path='product/edit/:id' element={<ProductForm />} />
+
                     <Route path='orders' element={<Orders />} />
+                    <Route path='order/add/' element={<OrderForm />} />
+                    <Route path='product/edit/:id' element={<OrderForm />} />
+
                     <Route path='customers' element={<Customers />} />
                     <Route path='employees' element={<Employees />} />
                     {/* apps */}

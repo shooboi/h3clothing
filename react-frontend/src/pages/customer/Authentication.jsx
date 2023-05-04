@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import { Header, Login, Footer, Register } from '../../components/customer';
+import { useState } from 'react';
+import { Header, Login, Register } from '../../components/customer';
 
 
 const Authentication = () => {
@@ -10,7 +10,7 @@ const Authentication = () => {
         setIsLogin(!isLogin)
     }
 
-    const pages = [{ 'title': 'Login' }];
+    const pages = [{ 'id': 1, 'title': 'Login' }];
 
     return (
         <>
@@ -24,7 +24,7 @@ const Authentication = () => {
                 {/* hover: */}
                 <button onClick={toggleLogin} disabled={!isLogin} className={`transition bg-main-bg ${!isLogin ? "text-[#a749ff]" : "text-[#333] "} font-bold  w-20`} type="submit" >Register</button>
             </div>
-            <div className="bg-white mt-10 h-50vh top-0 left-0 px-[80px] flex justify-center">
+            <div className="bg-white mt-10 h-50vh top-0 left-0 sm:px-[80px] flex justify-center">
                 {isLogin ? <Login /> : <Register />}
 
             </div>

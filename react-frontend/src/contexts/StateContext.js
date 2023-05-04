@@ -12,12 +12,17 @@ const initialState = {
 
 export const ContextProvider = ({ children }) => {
     const [screenSize, setScreenSize] = useState(undefined);
+    const [activeMenu, setActiveMenu] = useState(true);
+    const [activeOrderSb, setActiveOrderSb] = useState(false);
+    const [activeProductSb, setActiveProductSb] = useState(false);
+    const [isClicked, setIsClicked] = useState(initialState);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [isUpload, setIsUpload] = useState(false);
+    const [images, setImages] = useState([]);
+
     //   const [currentColor, setCurrentColor] = useState('#03C9D7');
     //   const [currentMode, setCurrentMode] = useState('Light');
     //   const [themeSettings, setThemeSettings] = useState(false);
-    const [activeMenu, setActiveMenu] = useState(true);
-    const [isClicked, setIsClicked] = useState(initialState);
-
     //   const setMode = (e) => {
     //     setCurrentMode(e.target.value);
     //     localStorage.setItem('themeMode', e.target.value);
@@ -27,6 +32,7 @@ export const ContextProvider = ({ children }) => {
     //     setCurrentColor(color);
     //     localStorage.setItem('colorMode', color);
     //   };
+    const handleOpen = () => { setOpenDialog(!openDialog) };
 
     const handleClick = (clicked) => setIsClicked({ ...initialState, [clicked]: true });
 
@@ -40,6 +46,9 @@ export const ContextProvider = ({ children }) => {
     useEffect(() => {
         if (screenSize < 900) {
             setActiveMenu(false);
+            setActiveOrderSb(false)
+            setActiveProductSb(false)
+
         } else {
             setActiveMenu(true);
         }
@@ -47,7 +56,7 @@ export const ContextProvider = ({ children }) => {
 
     return (
         // eslint-disable-next-line react/jsx-no-constructed-context-values
-        <StateContext.Provider value={{ activeMenu, setActiveMenu, isClicked, setIsClicked, handleClick, screenSize, setScreenSize }}>
+        <StateContext.Provider value={{ activeMenu, setActiveMenu, openDialog, setOpenDialog, activeOrderSb, setActiveOrderSb, activeProductSb, setActiveProductSb, handleOpen, isClicked, setIsClicked, handleClick, isUpload, setIsUpload, images, setImages, screenSize, setScreenSize, initialState }}>
             {children}
         </StateContext.Provider>
     );

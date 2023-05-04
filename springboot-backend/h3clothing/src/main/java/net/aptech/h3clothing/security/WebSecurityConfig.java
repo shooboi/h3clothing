@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests().antMatchers("/api/auth/login","/api/user/add","/api/category/child").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/login","/api/user/add","/api/category/child", "/api/thumbnail/add").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(((request, response, authException) -> {

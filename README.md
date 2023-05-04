@@ -20,9 +20,11 @@ A project made by Aptech Students
 	- [ ] add to order alert
 	- [ ] add single product: slider image 
 	- [ ] add 404, 403 page
+	- [ ] fix auth
 - admin
 	- [ ] filter role
 	- [ ] call api, fake data
 	- [ ] crud order, customer
 	- [ ] add admin login page
+	- [ ] replace create/edit page with modal or sidebar
 - [ ] finish project

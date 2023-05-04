@@ -1,10 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
-
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Checkbox, Input, Popover, PopoverContent, PopoverHandler, Switch } from '@material-tailwind/react';
-
 import Axios from '../../api/Axios';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Checkbox, Input } from '@material-tailwind/react';
+
+import { MdClose } from "react-icons/md";
+
 const LOGIN_URL = '/api/auth/login';
 
 // const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -65,7 +66,6 @@ const Login = () => {
 
                 }
             );
-            console.log(response)
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             setAuth({ email, pwd, roles, accessToken });
@@ -78,7 +78,7 @@ const Login = () => {
             } else if (err.response?.status === 401) {
                 setErrMsg('Unauthorized');
             } else {
-                setErrMsg('Login Failed');
+                setErrMsg('Incorrect username or password.');
             }
             errRef.current.focus();
         }
@@ -87,9 +87,10 @@ const Login = () => {
 
     return (
         <>
-
             <section className='inline-grid grid-flow-row-dense border justify-center w-780 p-10 md:px-40' >
-
+                <div className={`${errMsg ? "" : "absolute left-[-9999px] "} col-span-2 w-full p-2 border-t-2 border-red-700 bg-main-bg`}>
+                    <div className="flex justify-start items-center"><MdClose className='text-red-500 tracking-wide' /><span className='font-bold text-gray-700'>ERROR: </span><p className='text-gray-700' ref={errRef} aria-live="assertive">{errMsg}</p></div>
+                </div>
                 <form className='grid grid-cols-2 col-span-2 space-y-8 pt-8' onSubmit={handleSubmit}>
                     <div className="col-span-2">
                         <Input
@@ -103,17 +104,7 @@ const Login = () => {
                             value={email}
                             label='Email'
                             required
-                            onFocus={() => setEmailFocus(true)}
-                            onBlur={() => setEmailFocus(false)}
                         />
-                        <Popover id="" open={!validEmail}>
-                            <PopoverContent>
-
-                            </PopoverContent>
-
-                        </Popover>
-
-
                     </div>
 
                     <div className="col-span-2">
@@ -135,9 +126,7 @@ const Login = () => {
                     <button className="transition bg-main-bg text-[#333] hover:text-white hover:bg-[#a749ff] w-20 p-2 px-3 border border-gray-300" type="submit" >Login</button>
 
                 </form>
-                <div className='text-red-600 pt-10'>
-                    <p ref={errRef} className={errMsg ? "errmsg " : "offscreen col-span-2"} aria-live="assertive">{errMsg}</p>
-                </div>
+
             </section>
         </>
     )

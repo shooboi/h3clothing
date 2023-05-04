@@ -9,7 +9,6 @@ const pages = [{ 'id': 1, 'title': 'Shopping cart' }];
 
 const Cart = () => {
     const { cart, itemAmount } = useContext(CartContext);
-    console.log(cart);
     return (
         <div>
             <Header pages={pages} background={"bg-banner"} />

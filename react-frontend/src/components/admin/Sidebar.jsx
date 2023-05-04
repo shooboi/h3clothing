@@ -15,10 +15,9 @@ const Sidebar = () => {
             setActiveMenu(false);
         }
     }
-    const activeLink = "flex items-center gap-5 pl-4 pt-3 pb-3 rounded-lg text-light-gray text-md m-2 bg-light-gray no-underline"
+    const activeLink = "flex items-center gap-5 pl-4 pt-3 pb-3 rounded-lg text-light-gray text-md m-2 bg-[#03C9D7] text-white no-underline"
 
     const normalLink = "flex items-center gap-5 pl-4 pt-3 pb-3 rounded-lg text-gray-700 text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2 no-underline"
-
 
     return (
         <div className='ml-3 h-screen md:overflow-hidden overflow-auto

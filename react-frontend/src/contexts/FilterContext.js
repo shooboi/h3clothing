@@ -40,7 +40,6 @@ const FilterProvider = ({ children }) => {
   // sorting function
   const sorting = (event) => {
     let userValue = event.target.value;
-    console.log(userValue);
     dispatch({ type: "GET_SORT_VALUE", payload: userValue });
   };
 
