@@ -1,5 +1,7 @@
 package net.aptech.h3clothing.entity;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -22,7 +24,7 @@ public class Order extends  Base {
 
     @Column(name = "delivery_address")
     private String deliveryAddress;
-
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "status")
     private Status status;
 

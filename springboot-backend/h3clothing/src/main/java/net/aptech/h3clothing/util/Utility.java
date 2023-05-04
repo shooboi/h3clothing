@@ -67,9 +67,6 @@ public class Utility {
     return new Category(dto.getTitle(), dto.getParentId());
   }
 
-  public ChildDTO convertChildFromCategory(Category category) {
-    return new ChildDTO(category.getId(), category.getTitle());
-  }
 
   //Role
 
