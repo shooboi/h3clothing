@@ -1,9 +1,9 @@
 package net.aptech.h3clothing.controller;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.ArrayList;
 import net.aptech.h3clothing.dto.ProductDTO;
 import net.aptech.h3clothing.dto.ThumbnailDTO;
-import net.aptech.h3clothing.entity.Product;
 import net.aptech.h3clothing.service.GenericService;
 import net.aptech.h3clothing.service.ProductService;
 import net.aptech.h3clothing.service.serviceImpl.ProductServiceImpl;
@@ -31,6 +31,10 @@ public class ProductController {
   @Autowired
   Utility utility;
 
+  @Autowired
+  ObjectMapper objectMapper;
+
+
   public ProductController(ProductServiceImpl service) {
     this.service = service;
   }
@@ -41,11 +45,12 @@ public class ProductController {
     return ResponseEntity.ok(service.getAll());
   }
 
-  @PostMapping(name = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,
+  @PostMapping(value = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,
       MediaType.APPLICATION_JSON_VALUE})
-  public ResponseEntity<?> addProduct(@Valid @RequestBody ProductDTO productDTO,
+  public ResponseEntity<?> addProduct(@Valid @RequestPart("product") String productDTO,
       @RequestPart("file") MultipartFile[] file) throws IOException {
-    setOrigin(file, productDTO);
+    ProductDTO dto = objectMapper.readValue(productDTO, ProductDTO.class);
+    setOrigin(file, dto);
     return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
   }
 
@@ -87,17 +92,20 @@ public class ProductController {
 
 
   public void setOrigin(MultipartFile[] multipartFile, ProductDTO dto) throws IOException {
+    List<ThumbnailDTO> files = new ArrayList<>();
     if (multipartFile.length > 0) {
       for (MultipartFile file : multipartFile) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-//        dto.setImageUrl(fileName);
 //        service.save(dto);
 //        System.out.println("ProductName " + dto.getProduct().getName());
 //        String uploadDir = "products-photos/" + dto.getProduct().getName();
+        files.add(new ThumbnailDTO(fileName));
         String uploadDir = "products-photos/" + dto.getName();
         Utility.saveFile(uploadDir, fileName, file);
-        service.save(dto);
       }
+        dto.setImageUrl(files);
+        service.save(dto);
+
 
     }
 
