@@ -34,6 +34,9 @@ public class Order extends Base {
   @JoinColumn(name = "user_id")
   private User user;
 
+  @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Order_Detail> orderDetails;
+
   public Order() {
   }
 

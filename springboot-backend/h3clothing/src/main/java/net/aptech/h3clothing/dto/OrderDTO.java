@@ -1,5 +1,7 @@
 package net.aptech.h3clothing.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,7 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderDTO {
 
     private UserDTO user;
@@ -23,4 +26,6 @@ public class OrderDTO {
     private String deliveryAddress;
 
     private Status status;
+
+    List<OrderDetailDTO> orderDetails;
 }

@@ -31,5 +31,6 @@ public class OrderDetailController {
   public ResponseEntity addOrder(@RequestBody OrderDetailDTO orderDetailDTO){
     return ResponseEntity.ok(orderDetailControllerGenericService.add(orderDetailDTO));
   }
-  
+
+
 }
