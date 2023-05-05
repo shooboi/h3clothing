@@ -4,8 +4,10 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import lombok.Data;
 
 @Embeddable
+@Data
 public class OrderDetailKey implements Serializable {
     @ManyToOne
     @JoinColumn(name = "order_id")

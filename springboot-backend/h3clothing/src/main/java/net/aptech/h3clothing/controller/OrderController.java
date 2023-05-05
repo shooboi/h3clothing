@@ -2,6 +2,8 @@ package net.aptech.h3clothing.controller;
 
 import net.aptech.h3clothing.dto.OrderDTO;
 import net.aptech.h3clothing.service.GenericService;
+import net.aptech.h3clothing.service.serviceImpl.OrderDetailServiceImpl;
+import net.aptech.h3clothing.service.serviceImpl.OrderServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,7 @@ public class OrderController {
 
   final GenericService<OrderDTO> dtoGenericService;
 
-  public OrderController(GenericService<OrderDTO> dtoGenericService) {
+  public OrderController(OrderServiceImpl dtoGenericService) {
     this.dtoGenericService = dtoGenericService;
   }
 
