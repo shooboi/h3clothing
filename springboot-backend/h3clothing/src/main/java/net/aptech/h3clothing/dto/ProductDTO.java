@@ -24,7 +24,7 @@ public class ProductDTO {
 
     private CategoryDTO category;
 
-    private List<ThumbnailDTO> imageUrl;
+    private List<ThumbnailDTO> imageList;
 
 
 }

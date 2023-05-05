@@ -24,7 +24,7 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserDTO user){
         try{
-            userService.save(user);
+            userService.add(user);
             return ResponseEntity.ok(new MessageResponse("Created !",user.getEmail()));
         }catch(Exception ex){
             return ResponseEntity.badRequest().body(new MessageResponse("Error !", "Illegal Argument"));

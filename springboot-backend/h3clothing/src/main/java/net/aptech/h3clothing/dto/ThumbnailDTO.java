@@ -13,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ThumbnailDTO {
-//    @NotBlank
-    private String imageUrl;
+  private String imageUrl;
+
+
 }

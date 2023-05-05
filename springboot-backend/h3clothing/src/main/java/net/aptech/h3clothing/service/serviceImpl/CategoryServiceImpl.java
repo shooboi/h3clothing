@@ -1,5 +1,6 @@
 package net.aptech.h3clothing.service.serviceImpl;
 
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import net.aptech.h3clothing.dto.CategoryDTO;
 import net.aptech.h3clothing.entity.Category;
@@ -7,7 +8,7 @@ import net.aptech.h3clothing.exception.NotFoundException;
 import net.aptech.h3clothing.repository.CategoryRepository;
 import net.aptech.h3clothing.service.CategoryService;
 import net.aptech.h3clothing.service.GenericService;
-import net.aptech.h3clothing.util.Utility;
+import net.aptech.h3clothing.service.mapper.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,19 +23,29 @@ public class CategoryServiceImpl implements GenericService<CategoryDTO>, Categor
 
   final CategoryRepository categoryRepository;
 
-  @Autowired
-  Utility utility;
+
+  final CategoryMapper categoryMapper;
 
   @Override
   public List<CategoryDTO> getAll() {
-    return utility.convertCategoryDTOFromCategories(categoryRepository.findAll());
+    return categoryRepository.findAll().stream().map(categoryMapper::getCategoryDTOFromCategory)
+        .collect(
+            Collectors.toList());
   }
 
   @Override
-  public CategoryDTO save(CategoryDTO categoryDTO) {
+  public CategoryDTO add(CategoryDTO categoryDTO) {
     Category category = categoryRepository.save(
-        utility.convertCategoryFromCategoryDTO(categoryDTO));
-    return new CategoryDTO(category.getId(),category.getTitle(), category.getParentId());
+        categoryMapper.getCategoryFromCategoryDTO(categoryDTO));
+    return categoryMapper.getCategoryDTOFromCategory(category);
+  }
+
+  @Override
+  public CategoryDTO update(int id, CategoryDTO categoryDTO) {
+    Category category = categoryRepository.getById(id);
+    categoryMapper.updateCategory(categoryDTO, category);
+    categoryRepository.save(category);
+    return categoryMapper.getCategoryDTOFromCategory(category);
   }
 
   @Override
@@ -42,7 +53,8 @@ public class CategoryServiceImpl implements GenericService<CategoryDTO>, Categor
     if (id == 0) {
       throw new NotFoundException("Id not found");
     }
-    return Optional.of(utility.convertCategoryDTOFromCategory(categoryRepository.getById(id)));
+    Category category = categoryRepository.getById(id);
+    return Optional.ofNullable(categoryMapper.getCategoryDTOFromCategory(category));
   }
 
   @Override
@@ -55,19 +67,13 @@ public class CategoryServiceImpl implements GenericService<CategoryDTO>, Categor
 
   @Override
   public List<CategoryDTO> getAllParentRoot() {
-    return utility.convertCategoryDTOFromCategories(categoryRepository.getAllParentRoot());
+    return categoryRepository.getAllParentRoot().stream()
+        .map(categoryMapper::getCategoryDTOFromCategory).collect(
+            Collectors.toList());
   }
 
   @Override
   public List<CategoryDTO> getChildCategoryFromParent() {
     return null;
   }
-
-//  public String getChild(int parent, int next){
-//    if(next == 0) return "NONE";
-//  if(parent >= 0){
-//
-//  }
-//
-//  }
 }

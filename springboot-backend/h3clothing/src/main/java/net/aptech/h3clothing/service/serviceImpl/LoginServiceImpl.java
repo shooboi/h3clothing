@@ -2,6 +2,7 @@ package net.aptech.h3clothing.service.serviceImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import net.aptech.h3clothing.dto.LoginDTO;
 import net.aptech.h3clothing.dto.UserDTO;
 import net.aptech.h3clothing.dto.response.JWTResponse;
@@ -24,15 +25,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {
 
-  @Autowired
-  AuthenticationManager authenticationManager;
-  @Autowired
-  UserRepository repository;
+  final AuthenticationManager authenticationManager;
 
-  @Autowired
-  TokenJWTUtil tokenJWTUtil;
+  final UserRepository repository;
+
+  final TokenJWTUtil tokenJWTUtil;
 
   @Override
   public JWTResponse login(LoginDTO u) {

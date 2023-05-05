@@ -1,64 +1,49 @@
 package net.aptech.h3clothing.controller;
 
-import net.aptech.h3clothing.dto.CategoryDTO;
 import net.aptech.h3clothing.dto.OrderDTO;
 import net.aptech.h3clothing.service.GenericService;
-import net.aptech.h3clothing.service.serviceImpl.OrderServiceImpl;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/order")
 public class OrderController {
 
-    final GenericService<OrderDTO> service;
+  final GenericService<OrderDTO> dtoGenericService;
 
-    public OrderController(OrderServiceImpl service) {
-        this.service = service;
-    }
+  public OrderController(GenericService<OrderDTO> dtoGenericService) {
+    this.dtoGenericService = dtoGenericService;
+  }
 
-    @GetMapping("/list")
-    public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(service.getAll());
-    }
+  @GetMapping("/list")
+  public ResponseEntity<?> getAll() {
+    return ResponseEntity.ok(dtoGenericService.getAll());
+  }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addRole(@Valid @RequestBody OrderDTO orderDTO) {
-        service.save(orderDTO);
-        return new ResponseEntity<>(orderDTO, HttpStatus.CREATED);
-    }
+  @PostMapping("/add")
+  public ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO) {
+    return ResponseEntity.ok(dtoGenericService.add(orderDTO));
+  }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody OrderDTO orderDTO) {
-        OrderDTO find = extractOrderDTOFromField(id, orderDTO);
-        return ResponseEntity.ok(find);
-    }
+  @PutMapping("/update/{id}")
+  public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody OrderDTO orderDTO) {
+    return ResponseEntity.ok(dtoGenericService.update(id, orderDTO));
+  }
 
-    public OrderDTO extractOrderDTOFromField(Integer id, OrderDTO orderDTO) {
-        OrderDTO dto = service.getById(id).get();
-        dto.setOrderDate(Timestamp.valueOf(LocalDateTime.now()));
-        dto.setStatus(orderDTO.getStatus());
-        dto.setDeliveryAddress(orderDTO.getDeliveryAddress());
-        dto.setTotalAmount(orderDTO.getTotalAmount());
-        dto.setPaymentMethod(orderDTO.getPaymentMethod());
-        service.save(dto);
-        return dto;
-    }
+  @DeleteMapping("/delete/{id}")
+  public void delete(@PathVariable("id") int id) {
+    dtoGenericService.remove(id);
+  }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<?> get(@PathVariable("id") Integer id) {
-        OrderDTO dto = service.getById(id).get();
-        return ResponseEntity.ok(dto);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
-        service.remove(id);
-        return ResponseEntity.ok("Deleted");
-    }
+  @GetMapping("/get/{id}")
+  public ResponseEntity<?> get(@PathVariable("id") int id) {
+    return ResponseEntity.ok(dtoGenericService.getById(id));
+  }
 }

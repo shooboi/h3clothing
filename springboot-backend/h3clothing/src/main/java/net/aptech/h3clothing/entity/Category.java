@@ -12,18 +12,19 @@ import javax.persistence.Table;
 @Entity
 @Data
 @Table(name = "category")
-public class Category extends Base{
-    @Column(name = "title")
-    private String title;
+public class Category extends Base {
 
-    @Column(name = "parent_id")
-    private int parentId;
+  @Column(name = "title")
+  private String title;
 
-    public Category() {
-    }
+  @Column(name = "parent_id")
+  private int parentId;
 
-    public Category(String title, int parentId) {
-        this.title = title;
-        this.parentId = parentId;
-    }
+  public Category() {
+  }
+
+  public Category(String title, int parentId) {
+    this.title = title;
+    this.parentId = parentId;
+  }
 }

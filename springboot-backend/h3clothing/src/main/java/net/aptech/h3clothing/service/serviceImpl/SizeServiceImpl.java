@@ -1,5 +1,6 @@
 package net.aptech.h3clothing.service.serviceImpl;
 
+import lombok.RequiredArgsConstructor;
 import net.aptech.h3clothing.dto.SizeDTO;
 import net.aptech.h3clothing.entity.Size;
 import net.aptech.h3clothing.repository.SizeRepository;
@@ -14,31 +15,35 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SizeServiceImpl implements GenericService<SizeDTO> {
-    @Autowired
-    SizeRepository sizeRepository;
 
-    @Autowired
-    Utility utility;
+  final SizeRepository sizeRepository;
 
-    @Override
-    public List<SizeDTO> getAll() {
-        return utility.convertSizeDTOFromSizes(sizeRepository.findAll());
-    }
 
-    @Override
-    public SizeDTO save(SizeDTO sizeDTO) {
-        Size s = sizeRepository.save(utility.convertSizeFromSizeDTO(sizeDTO));
-        return new SizeDTO(s.getName(),s.getQuantity());
-    }
+  @Override
+  public List<SizeDTO> getAll() {
+    return null;
+  }
 
-    @Override
-    public Optional<SizeDTO> getById(int id) {
-        return Optional.of(utility.convertSizeDTOFromSize(sizeRepository.getById(id)));
-    }
+  @Override
+  public SizeDTO add(SizeDTO sizeDTO) {
+    return null;
+  }
 
-    @Override
-    public void remove(int id) {
-        sizeRepository.deleteById(id);
-    }
+  @Override
+  public SizeDTO update(int id, SizeDTO sizeDTO) {
+    return null;
+  }
+
+
+  @Override
+  public Optional<SizeDTO> getById(int id) {
+    return null;
+  }
+
+  @Override
+  public void remove(int id) {
+    sizeRepository.deleteById(id);
+  }
 }

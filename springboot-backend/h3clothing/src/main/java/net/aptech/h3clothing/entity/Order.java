@@ -2,6 +2,10 @@ package net.aptech.h3clothing.entity;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -11,31 +15,30 @@ import java.sql.Timestamp;
 
 @Table(name = "orders")
 @Entity
+@AllArgsConstructor
 @Data
-public class Order extends  Base {
-    @Column(name = "order_date")
-    private Timestamp orderDate;
+public class Order extends Base {
 
-    @Column(name = "total_amount")
-    private double totalAmount;
+  @Column(name = "order_date")
+  private Timestamp orderDate;
 
-    @Column(name = "payment_method")
-    private String paymentMethod;
+  @Column(name = "total_amount")
+  private double totalAmount;
 
-    @Column(name = "delivery_address")
-    private String deliveryAddress;
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "status")
-    private Status status;
+  @Column(name = "payment_method")
+  private String paymentMethod;
 
-    public Order() {
-    }
+  @Column(name = "delivery_address")
+  private String deliveryAddress;
+  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "status")
+  private Status status;
 
-    public Order(Timestamp orderDate, double totalAmount, String paymentMethod, String deliveryAddress, Status status) {
-        this.orderDate = orderDate;
-        this.totalAmount = totalAmount;
-        this.paymentMethod = paymentMethod;
-        this.deliveryAddress = deliveryAddress;
-        this.status = status;
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  private User user;
+
+  public Order() {
+  }
+
 }

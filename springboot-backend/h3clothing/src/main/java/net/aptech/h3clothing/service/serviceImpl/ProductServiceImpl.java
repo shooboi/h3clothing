@@ -1,50 +1,57 @@
 package net.aptech.h3clothing.service.serviceImpl;
 
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import net.aptech.h3clothing.dto.ProductDTO;
 import net.aptech.h3clothing.entity.Product;
 import net.aptech.h3clothing.repository.ProductRepository;
 import net.aptech.h3clothing.service.GenericService;
 import net.aptech.h3clothing.service.ProductService;
-import net.aptech.h3clothing.util.Utility;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import net.aptech.h3clothing.service.mapper.ProductMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ProductServiceImpl implements GenericService<ProductDTO>, ProductService {
 
-  @Autowired
-  ProductRepository productRepository;
+  final ProductRepository productRepository;
 
-  @Autowired
-  Utility utility;
+  final ProductMapper productMapper;
 
 
   @Override
   public List<ProductDTO> getAll() {
-    return utility.convertProductDTOFromProducts(productRepository.findAll());
+    return productRepository.findAll().stream().map(productMapper::getProductDTOFromProduct)
+        .collect(
+            Collectors.toList());
   }
 
   @Override
-  public ProductDTO save(ProductDTO productDTO) {
-    Product p = utility.convertProductFromProductDTO(productDTO);
-    productRepository.save(p);
-    return new ProductDTO(p.getId(), p.getName(), p.getDescription(), p.getPrice(),
-        utility.convertCategoryDTOFromCategory(p.getCategory()),utility.convertThumbnailDTOFromThumbnails(p.getImageList()));
+  public ProductDTO add(ProductDTO productDTO) {
+    Product product = productRepository.save(productMapper.getProductFromProductDTO(productDTO));
+    return productMapper.getProductDTOFromProduct(product);
   }
+
+  @Override
+  public ProductDTO update(int id, ProductDTO productDTO) {
+    Product product = productRepository.getById(id);
+    productMapper.updateProduct(productDTO, product);
+    productRepository.save(product);
+    return productMapper.getProductDTOFromProduct(product);
+  }
+
 
   @Override
   public Optional<ProductDTO> getById(int id) {
-    return Optional.of(utility.convertProductDTOFromProduct(productRepository.getById(id)));
+    return Optional.ofNullable(
+        productMapper.getProductDTOFromProduct(productRepository.getById(id)));
   }
 
 
@@ -59,6 +66,7 @@ public class ProductServiceImpl implements GenericService<ProductDTO>, ProductSe
     List<Product> products = productRepository.findAllByPage(dto.getName(),
         Optional.ofNullable(dto.getId()),
         dto.getDescription(), Optional.ofNullable(dto.getPrice()), pageable).getContent();
-    return utility.convertProductDTOFromProducts(products);
+    return products.stream().map(productMapper::getProductDTOFromProduct)
+        .collect(Collectors.toList());
   }
 }

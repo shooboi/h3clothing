@@ -1,11 +1,11 @@
 package net.aptech.h3clothing.service.serviceImpl;
 
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import net.aptech.h3clothing.dto.ThumbnailDTO;
-import net.aptech.h3clothing.entity.Thumbnail_Image;
 import net.aptech.h3clothing.repository.Thumbnail_Repository;
 import net.aptech.h3clothing.service.GenericService;
-import net.aptech.h3clothing.util.Utility;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.aptech.h3clothing.service.mapper.ThumbnailMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,32 +14,37 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ThumbnailServiceImpl implements GenericService<ThumbnailDTO> {
-    @Autowired
-    Thumbnail_Repository thumbnailRepository;
 
-    @Autowired
-    Utility utility;
+  final Thumbnail_Repository thumbnailRepository;
+  final ThumbnailMapper thumbnailMapper;
 
-    @Override
-    public List<ThumbnailDTO> getAll() {
-        return utility.convertThumbnailDTOFromThumbnails(thumbnailRepository.findAll());
-    }
+  @Override
+  public List<ThumbnailDTO> getAll() {
+    return thumbnailRepository.findAll().stream().map(thumbnailMapper::getThumbnailDTOFromThumbnail)
+        .collect(Collectors.toList());
+  }
 
-    @Override
-    public ThumbnailDTO save(ThumbnailDTO thumbnailDTO) {
-//        Thumbnail_Image ti = thumbnailRepository.save(utility.convertThumbnailFromThumbnailDTO(thumbnailDTO));
-//        return new ThumbnailDTO(ti.getImageUrl(),thumbnailDTO.getProduct());
-        return null;
-    }
+  @Override
+  public ThumbnailDTO add(ThumbnailDTO thumbnailDTO) {
+    return null;
+  }
 
-    @Override
-    public Optional<ThumbnailDTO> getById(int id) {
-        return Optional.of(utility.convertThumbnailDTOFromThumbnail(thumbnailRepository.getById(id)));
-    }
+  @Override
+  public ThumbnailDTO update(int id, ThumbnailDTO thumbnailDTO) {
+    return null;
+  }
 
-    @Override
-    public void remove(int id) {
-        thumbnailRepository.deleteById(id);
-    }
+
+  @Override
+  public Optional<ThumbnailDTO> getById(int id) {
+    return Optional.ofNullable(
+        thumbnailMapper.getThumbnailDTOFromThumbnail(thumbnailRepository.getById(id)));
+  }
+
+  @Override
+  public void remove(int id) {
+    thumbnailRepository.deleteById(id);
+  }
 }

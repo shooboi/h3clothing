@@ -4,7 +4,6 @@ import java.util.List;
 import lombok.*;
 
 import javax.persistence.*;
-
 @Getter
 @Setter
 @Table(name = "products")
@@ -19,12 +18,13 @@ public class Product extends Base {
     @Column(name = "price")
     private double price;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name = "categoryId")
     private Category category;
 
     @OneToMany(mappedBy = "product")
     private List<Thumbnail_Image> imageList;
+
     public Product() {
     }
 

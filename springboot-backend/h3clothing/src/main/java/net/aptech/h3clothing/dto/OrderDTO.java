@@ -13,6 +13,8 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDTO {
+
+    private UserDTO user;
     private Timestamp orderDate;
 
     private double totalAmount;

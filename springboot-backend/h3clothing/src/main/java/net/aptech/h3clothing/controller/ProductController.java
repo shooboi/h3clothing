@@ -1,14 +1,16 @@
 package net.aptech.h3clothing.controller;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import net.aptech.h3clothing.dto.ProductDTO;
+//import net.aptech.h3clothing.dto.ThumbnailDTO;
 import net.aptech.h3clothing.dto.ThumbnailDTO;
+import net.aptech.h3clothing.entity.Thumbnail_Image;
 import net.aptech.h3clothing.service.GenericService;
 import net.aptech.h3clothing.service.ProductService;
 import net.aptech.h3clothing.service.serviceImpl.ProductServiceImpl;
 import net.aptech.h3clothing.util.Utility;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,19 +26,17 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/product")
 public class ProductController {
 
-  @Autowired
-  ProductService productService;
+  final ProductService productService;
   final GenericService<ProductDTO> service;
 
-  @Autowired
-  Utility utility;
-
-  @Autowired
-  ObjectMapper objectMapper;
+  final ObjectMapper objectMapper;
 
 
-  public ProductController(ProductServiceImpl service) {
+  public ProductController(ProductService productService, ProductServiceImpl service,
+      ObjectMapper objectMapper) {
+    this.productService = productService;
     this.service = service;
+    this.objectMapper = objectMapper;
   }
 
   @GetMapping("/list")
@@ -50,7 +50,7 @@ public class ProductController {
       @RequestPart("file") MultipartFile[] file) throws IOException {
     ProductDTO dto = objectMapper.readValue(productDTO, ProductDTO.class);
     setOrigin(file, dto);
-    return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
+    return new ResponseEntity<>(dto, HttpStatus.CREATED);
   }
 
 
@@ -63,19 +63,10 @@ public class ProductController {
   @PutMapping("/update/{id}")
   public ResponseEntity<?> update(@PathVariable("id") Integer id,
       @RequestBody ProductDTO productDTO) {
-    ProductDTO find = extractProductDTOFromField(id, productDTO);
+    ProductDTO find = service.update(id, productDTO);
     return ResponseEntity.ok(find);
   }
 
-  public ProductDTO extractProductDTOFromField(Integer id, ProductDTO productDTO) {
-    ProductDTO dto = service.getById(id).get();
-    dto.setName(productDTO.getName());
-    dto.setPrice(productDTO.getPrice());
-    dto.setDescription(productDTO.getDescription());
-    dto.setCategory(productDTO.getCategory());
-    service.save(dto);
-    return dto;
-  }
 
   @GetMapping("/get/{id}")
   public ResponseEntity<?> get(@PathVariable("id") Integer id) {
@@ -95,19 +86,12 @@ public class ProductController {
     if (multipartFile.length > 0) {
       for (MultipartFile file : multipartFile) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-//        service.save(dto);
-//        System.out.println("ProductName " + dto.getProduct().getName());
-//        String uploadDir = "products-photos/" + dto.getProduct().getName();
         files.add(new ThumbnailDTO(fileName));
         String uploadDir = "products-photos/" + dto.getName();
         Utility.saveFile(uploadDir, fileName, file);
       }
-        dto.setImageUrl(files);
-        service.save(dto);
-
-
+      dto.setImageList(files);
+      service.add(dto);
     }
-
-
   }
 }
