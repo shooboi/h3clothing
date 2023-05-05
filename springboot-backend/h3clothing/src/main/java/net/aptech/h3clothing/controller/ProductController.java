@@ -19,11 +19,13 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/product")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
 
   final ProductService productService;
@@ -43,9 +45,11 @@ public class ProductController {
   public ResponseEntity<?> getAll() {
     return ResponseEntity.ok(service.getAll());
   }
-
-  @PostMapping(value = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,
-      MediaType.APPLICATION_JSON_VALUE})
+//
+//  @PostMapping(value = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,
+//        MediaType.APPLICATION_JSON_VALUE})
+  @PostMapping(value = "/add",consumes = {"multipart/form-data"})
+//  @ResponseBody
   public ResponseEntity<?> addProduct(@Valid @RequestPart("product") String productDTO,
       @RequestPart("file") MultipartFile[] file) throws IOException {
     ProductDTO dto = objectMapper.readValue(productDTO, ProductDTO.class);
@@ -94,4 +98,7 @@ public class ProductController {
       service.add(dto);
     }
   }
-}
+
+
+  }
+

@@ -1,4 +1,4 @@
-import axios from '../api/Axios';
+import axios, { axiosPrivate } from '../api/Axios';
 
 const POST_PRODUCT_URL = "/api/product/add";
 const GET_ALL_PRODUCT_URL = "/api/product/list"
@@ -27,7 +27,7 @@ async function postProduct(formData) {
     try {
         const res =
 
-            await axios.post(POST_PRODUCT_URL, formData,
+            await axiosPrivate.post(POST_PRODUCT_URL, formData,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data',

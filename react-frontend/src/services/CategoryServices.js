@@ -1,6 +1,6 @@
-import React from 'react'
+import axios from "../api/Axios";
 
-const GET_ALL_CATEGORY_URL = "api/order/list"
+const GET_ALL_CATEGORY_URL = "api/category/list"
 
 async function getCategoryList() {
     try {
@@ -8,14 +8,10 @@ async function getCategoryList() {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Method': 'GET, PUT, DELETE, POST',
                     'Access-Control-Request-Origin': "localhost:3000/"
                 },
-                withCredentials: true,
-
             }
         ));
-        console.log(JSON.stringify(response?.data))
         return response;
     } catch (error) {
         console.log(error);

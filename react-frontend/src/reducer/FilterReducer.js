@@ -33,7 +33,6 @@ const FilterReducer = (state, action) => {
                 // filters: { ...state.filters, maxPrice, price: maxPrice },
             };
 
-
         case "GET_SORT_VALUE":
             // let userSortValue = document.getElementById("sort");
             // let sort_value = userSortValue.options[userSortValue.selectedIndex].value;
@@ -87,6 +86,76 @@ const FilterReducer = (state, action) => {
             return {
                 ...state,
                 grid_view: false,
+            };
+
+        case "UPDATE_FILTERS_VALUE":
+            const { name, value } = action.payload;
+
+            return {
+                ...state,
+                filters: {
+                    ...state.filters,
+                    [name]: value,
+                },
+            };
+
+        case "FILTER_PRODUCTS":
+            let { all_products } = state;
+            let tempFilterProduct = [...all_products];
+
+            const { text, category, company, color, price } = state.filters;
+
+            if (text) {
+                tempFilterProduct = tempFilterProduct.filter((curElem) => {
+                    return curElem.name.toLowerCase().includes(text);
+                });
+            }
+
+            if (category !== "all") {
+                tempFilterProduct = tempFilterProduct.filter(
+                    (curElem) => curElem.category === category.title
+                );
+            }
+
+            // if (company !== "all") {
+            //     tempFilterProduct = tempFilterProduct.filter(
+            //         (curElem) => curElem.company.toLowerCase() === company.toLowerCase()
+            //     );
+            // }
+
+            // if (color !== "all") {
+            //     tempFilterProduct = tempFilterProduct.filter((curElem) =>
+            //         curElem.colors.includes(color)
+            //     );
+            // }
+
+            // if (price === 0) {
+            //     tempFilterProduct = tempFilterProduct.filter(
+            //         (curElem) => curElem.price == price
+            //     );
+            // } else {
+            //     tempFilterProduct = tempFilterProduct.filter(
+            //         (curElem) => curElem.price <= price
+            //     );
+            // }
+            return {
+                ...state,
+                filter_products: tempFilterProduct,
+            };
+
+        case "CLEAR_FILTERS":
+            return {
+                ...state,
+                filters: {
+                    ...state.filters,
+                    text: "",
+                    category: "all",
+                    company: "all",
+                    color: "all",
+                    maxPrice: 0,
+                    price: state.filters.maxPrice,
+                    minPrice: state.filters.maxPrice,
+                },
             };
 
         default:

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.aptech.h3clothing.entity.Status;
 
-import javax.persistence.Column;
 import java.sql.Timestamp;
 @Getter
 @Setter

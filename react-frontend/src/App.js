@@ -20,9 +20,9 @@ function App() {
         {/* customer */}
         <Route path="/*" element={<Customer />}></Route>
         {/* admin */}
-        {/* <Route element={<RequireAuth allowedRoles={[ROLES.find(e => e === "ADMIN")]} />}> */}
-        <Route path='/admin/*' element={<Admin />} />
-        {/* </Route> */}
+        <Route element={<RequireAuth allowedRoles={[ROLES.find(e => e === "ADMIN")]} />}>
+          <Route path='/admin/*' element={<Admin />} />
+        </Route>
       </Routes>
       <ScollIntoView />
     </BrowserRouter >

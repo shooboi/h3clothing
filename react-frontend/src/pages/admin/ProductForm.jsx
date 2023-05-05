@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header } from '../../components/admin'
 import { Button, Input, Option, Select, Textarea } from '@material-tailwind/react'
 import { StyledDropzone } from '../../components/admin/Dropzone';
 import { useStateContext } from '../../contexts/StateContext';
-import ThumbnailServices from '../../services/ThumbnailServices';
 import { useParams } from 'react-router-dom';
 import useProductContext from '../../hooks/useProductContext';
 import ProductService from '../../services/ProductService';
@@ -13,11 +12,13 @@ const ProductForm = (props) => {
     const [errMsg, setErrMsg] = useState('');
 
     const { isUpload, setIsUpload, images } = useStateContext();
-    const { products } = useProductContext();
+    const { singleProduct, getSingleProduct } = useProductContext()
 
     const { id } = useParams();
-    const product = products.find((product) => { return product.id == id })
-    // console.log(product)
+
+    useEffect(() => {
+        getSingleProduct(id);
+    }, []);
     // props.name = product.title;
     // props.price = product.price;
     // props.description = product.description;
@@ -26,7 +27,11 @@ const ProductForm = (props) => {
     const [description, setDescription] = useState(props?.value ?? '');
     const [category, setCategory] = useState(props?.value ?? '');
 
-
+    // const { name, category, title, price, description } = singleProduct;
+    // setName(singleProduct.name)
+    // setPrice(singleProduct.price)
+    // setDescription(singleProduct.description)
+    // setCategory(singleProduct.category)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,8 +45,8 @@ const ProductForm = (props) => {
         }
 
         // const product =
-        console.log(images, product);
-        formData.append('product', JSON.stringify({
+        console.log(images, singleProduct);
+        formData.append('singleProduct', JSON.stringify({
             'name': name,
             'price': price,
             'description': description,
@@ -54,7 +59,7 @@ const ProductForm = (props) => {
     return (
         <div className='rounded-3xl border-radious sm:pt-16 m-3 mt-12 md:m-8 p-5 md:p-10 w-auto h-auto max-w-full max-h-full object-contain bg-white'>
 
-            <Header category="Page" title="New product" />
+            <Header category="Page" title={`${id ? "Edit Product" : "New product"}`} />
             <form className='flex flex-col space-y-7' onSubmit={handleSubmit} action="">
                 <div className='flex'>
                     <Input label='Name' onInput={e => setName(e.target.value)}></Input>

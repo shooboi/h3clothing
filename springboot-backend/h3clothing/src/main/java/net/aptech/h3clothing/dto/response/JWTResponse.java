@@ -1,6 +1,5 @@
 package net.aptech.h3clothing.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

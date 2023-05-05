@@ -6,7 +6,6 @@ import net.aptech.h3clothing.entity.User;
 import net.aptech.h3clothing.security.CustomerUserDetail;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 @Slf4j

@@ -1,8 +1,6 @@
 import React from 'react'
 import ProductCard from './ProductCard'
 
-
-
 const GridView = ({ products = test }) => {
     return (
         <div>
