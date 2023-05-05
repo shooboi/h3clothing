@@ -7,6 +7,8 @@ export { default as SingleProduct } from './SingleProduct';
 export { default as Cart } from './Cart';
 export { default as Favorite } from './Favorite';
 export { default as Account } from './Account';
+export { default as Checkout } from './Checkout';
+
 
 
 

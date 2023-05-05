@@ -135,7 +135,7 @@ export function ProductImage({ column, row }) {
     return (
         <div className="flex items-center">
             <div className="flex-shrink-0 h-20 w-20">
-                <img className="h-20 w-20" src={row.original[column.imgAccessor]} alt="" />
+                <img className="h-20 w-20" src={row.original[column.imgAccessor] ? row.original[column.imgAccessor] : "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/455365/item/vngoods_41_455365.jpg?width=750"} alt="" />
             </div>
             {/* <div className="ml-4">
                 <div className="text-sm font-medium text-gray-900">{value}</div>
@@ -261,7 +261,7 @@ function Table({ columns, data }) {
                                                     return (
                                                         <td
                                                             {...cell.getCellProps()}
-                                                            className="px-6 py-4 whitespace-nowrap"
+                                                            className="px-6 py-4"
                                                             role="cell"
                                                         >
                                                             {cell.column.Cell.name === "defaultRenderer"

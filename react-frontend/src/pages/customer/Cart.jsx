@@ -5,10 +5,14 @@ import { IoMdClose } from "react-icons/io"
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 import { CartContext } from '../../contexts/CartContext'
 import { Link } from 'react-router-dom'
+import test from "../../assets/img/product/pro-1.jpg"
+import { Option, Select } from '@material-tailwind/react'
+
 const pages = [{ 'id': 1, 'title': 'Shopping cart' }];
 
 const Cart = () => {
-    const { cart, itemAmount } = useContext(CartContext);
+    const { cart, itemAmount, removeFromCart, clearCart, increaseAmount, decreaseAmount, total } = useContext(CartContext);
+    console.log(cart);
     return (
         <div>
             <Header pages={pages} background={"bg-banner"} />
@@ -35,33 +39,40 @@ const Cart = () => {
                                             </thead>
                                             <tbody>
                                                 {cart.length > 0 ?
-                                                    "" : <tr><td>No item</td></tr>}
+                                                    "" : <tr><td>No item <Link to="/product" className='text-lavender'>Go to Store</Link></td></tr>}
                                                 {cart.map(item => {
                                                     return <tr key={item.id} className="border-b dark:border-neutral-500">
                                                         <td className="whitespace-nowrap px-6 py-4">
                                                             <div className='flex flex-row'>
-                                                                <div className='max-w-[82px] mr-3'><img src={item.image} alt={item.title} /></div>
+                                                                <div className='max-w-[82px] mr-3'><img src={item.image ? item.image : test} alt={item.title} /></div>
                                                                 <div className='flex flex-col gap-5 pt-3'>
-                                                                    <span className='font-semibold'>{item.title}</span>
-                                                                    <span className='text-gray-500 '>Size: n/a</span>
+                                                                    <span className='font-semibold'>{item.name ? item.name : item.title}</span>
+                                                                    <select name='Size:' className='text-gray-500 w-28'>
+                                                                        <option>Choose Size</option>
+                                                                        <option>S</option>
+                                                                        <option>M</option>
+                                                                        <option>L</option>
+                                                                        <option>XL</option>
+                                                                        <option>2XL</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
 
                                                         </td>
 
-                                                        <td className="whitespace-nowrap px-6 py-4">3$</td>
+                                                        <td className="whitespace-nowrap px-6 py-4">{item.price}$</td>
 
                                                         <td className="whitespace-nowrap px-6 py-4">
                                                             <div className='flex flex-1 max-w-[100px] items-center h-full border p-2'>
-                                                                <div className='flex-1 h-full flex justify-center items-center cursor-pointer active:text-lavender'><AiOutlineMinus /></div>
-                                                                <div className='flex-1 h-full flex justify-center items-center px-2'>1</div>
-                                                                <div className='flex-1 h-full flex justify-center items-center cursor-pointer active:text-lavender'><AiOutlinePlus /></div>
+                                                                <div className='flex-1 h-full flex justify-center items-center cursor-pointer active:text-lavender' onClick={() => decreaseAmount(item.id)}><AiOutlineMinus /></div>
+                                                                <div className='flex-1 h-full flex justify-center items-center px-2'>{item.amount ? item.amount : 1}</div>
+                                                                <div className='flex-1 h-full flex justify-center items-center cursor-pointer active:text-lavender' onClick={() => increaseAmount(item.id)}><AiOutlinePlus /></div>
                                                             </div>
                                                         </td>
 
-                                                        <td className="whitespace-nowrap px-6 py-4">3$</td>
+                                                        <td className="whitespace-nowrap px-6 py-4">{`$ ${parseFloat(item.price * item.amount).toFixed(2)}`}</td>
 
-                                                        <td className="whitespace-nowrap px-6 py-4 cursor-pointer active:text-lavender"><IoMdClose /></td>
+                                                        <td className="whitespace-nowrap px-6 py-4 cursor-pointer active:text-lavender" onClick={() => removeFromCart(item.id)}><IoMdClose /></td>
                                                     </tr>
                                                 })}
 
@@ -85,6 +96,7 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
+                    <button className='border bg-gray-300 hover:text-white hover:bg-lavender transition-all duration-300 p-2' onClick={() => clearCart()}>Clear cart</button>
                     {cart.length > 0 ? <div className='grid grid-cols-1 lg:grid-cols-3 '>
                         <div className='col-span-2'>
 
@@ -95,19 +107,19 @@ const Cart = () => {
                             <div className='flex justify-between'>
                                 Total
                                 <div className=''>
-                                    3$
+                                    {parseFloat(total).toFixed(2)}$
                                 </div>
                             </div>
 
                             <div className='flex justify-between'>
                                 Total  (include taxes)
                                 <div className='text-4xl font-semibold'>
-                                    3$
+                                    {parseFloat(total).toFixed(2)}$
                                 </div>
                             </div>
                             <div className='flex flex-col justify-center text-center gap-3'>
 
-                                <Link to="#" className='border bg-lavender text-white p-2'>
+                                <Link to="/checkout" className='border bg-lavender text-white p-2'>
                                     Proceed to checkout
                                 </Link>
                                 <Link to="/" className='border bg-white text-black p-2'>
@@ -116,13 +128,8 @@ const Cart = () => {
 
                             </div>
                         </div>
-
-
                     </div> : ""}
-
                 </div>
-
-
             </section >
         </div >
     )

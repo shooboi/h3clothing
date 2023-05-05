@@ -9,11 +9,11 @@ const About = () => {
         <div>
             <Header pages={pages} background={background} />
             <section>
-                <div className='container mx-auto w-[50rem] flex flex-col justify-center items-center gap-8 p-10 '>
+                <div className='container mx-auto md:w-[50rem] flex flex-col justify-center items-center gap-8 md:p-10 pt-10 '>
                     <div className='block text-sm font-medium tracking-wider'>SIMPLY OR WHITE</div>
                     <div className='text-5xl font-light tracking-wider'>Clever & unique ideas</div>
 
-                    <div className='bg-story bg-no-repeat h-[516px] relative w-[712px]'>
+                    <div className='bg-story bg-no-repeat h-[50vh] w-[512px] md:h-[516px] relative md:w-[712px]'>
                         <div className='absolute text-white text-4xl tracking-widest font-semibold top-[50%] w-full text-center'>OUR STORY</div>
 
                     </div>

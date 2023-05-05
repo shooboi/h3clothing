@@ -11,19 +11,19 @@ A project made by Aptech Students
 
 # Project tasks:
 - customer
-	- [ ] fix reponsive, add transitions
-	- [ ] my account,add cart session or cookie 
+	- [ ] ~~fix reponsive~~, add transitions
+	- [ ] my account,add cart local storage /~~session or cookie~~
 	- [ ] category
 	- [ ] checkout
-	- [ ] filter product,search product
+	- [ ] ~~filter product~~,search product
 	- [ ] add slider
 	- [ ] add to order alert
-	- [ ] add single product: slider image 
+	- [ ] ~~add single product~~: slider image 
 	- [ ] add 404, 403 page
 	- [ ] fix auth
 - admin
-	- [ ] filter role
-	- [ ] call api, fake data
+	- [x] ~~filter role~~
+	- [ ] ~~call api~~, fake data
 	- [ ] crud order, customer
 	- [ ] add admin login page
 	- [ ] replace create/edit page with modal or sidebar

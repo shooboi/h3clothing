@@ -16,9 +16,14 @@ const Header = ({ pages, background }) => {
                 </div>
                 {
                     pages.map((e) => (
-                        <Link key={e.id} to={e.page} className="text-xl">
-                            <span >{e.title} {e?.icon}</span>
-                        </Link>
+                        <div key={e.id}>
+                            <div className={`flex opacity-60 ${e.isChild ? "" : "hidden"}`}>
+                                /
+                            </div>
+                            <Link key={e.id} to={e.path} className="text-xl">
+                                <span >{e.title} {e?.icon}</span>
+                            </Link>
+                        </div>
                     ))
                 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
-import { Main, About, Contact, Authentication, Product, Cart, Favorite, Account, SingleProduct } from './pages/customer'
+import { Main, About, Contact, Authentication, Product, Cart, Favorite, Account, SingleProduct, Checkout } from './pages/customer'
 import CustomerLayout from './layouts/CustomerLayout';
 import { NoPage } from './pages/others/404';
 import Unauthorize from './pages/others/403';
@@ -29,6 +29,8 @@ export default function Customer() {
                     <Route path='favorite' element={<Favorite />} />
 
                     <Route element={<RequiredAuth allowedRoles={ROLES} />}>
+                        <Route path='checkout' element={<Checkout />} />
+
                         <Route path='account' element={<Account />} />
                     </Route>
 

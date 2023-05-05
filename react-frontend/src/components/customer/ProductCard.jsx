@@ -6,20 +6,20 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { AiOutlineEye } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../contexts/CartContext';
+import test from "../../assets/img/product/pro-1.jpg"
 
 const ProductCard = ({ product }) => {
 
-    const { id, image, category, title, price } = product;
+    const { id, image, name, category, title, price } = product;
     const { addToCart } = useContext(CartContext);
 
-
     return (
-        <div className="group max-w-sm my-8 rounded dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
-            <div className='relative w-[270px] h-[345px] mx-auto flex justify-center items-center '>
+        <div className="group rounded dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
+            <div className='relative flex justify-center items-center '>
 
-                <img className="max-h-[300px] rounded-t-lg p-4" src={image} alt={title} />
+                <img className="md:max-h-[300px] rounded-t-lg p-4" src={image ? image : test} alt={title} />
 
-                <div className='flex absolute gap-x-0.5 w-[270px] bottom-0 ease-in'>
+                <div className='flex absolute gap-x-0.5 md:w-[270px] bottom-0 ease-in'>
                     <button>
                         <div className="flex justify-center items-center text-lg text-white w-12 h-12 bg-lavender group-hover:opacity-100 opacity-0 group-hover:translate-y-0 translate-y-[10px] transition-all duration-1000 ">
                             <CiHeart />
@@ -39,10 +39,10 @@ const ProductCard = ({ product }) => {
             </div>
 
 
-            <div className="flex flex-col px-5 pb-5">
+            <div className="flex flex-col px-5 pb-5 justify-center items-center">
 
                 <Link className='h-12 md:h-20 overflow-hidden text-ellipsis   ' to={`/singleproduct/${id}`} >
-                    <h3 className="inline-block hover:text-lavender text-gray-900 text-lg tracking-tight dark:text-white">{title}</h3>
+                    <h3 className="inline-block hover:text-lavender text-gray-900 text-lg tracking-tight dark:text-white">{title}{name}</h3>
                 </Link>
 
                 <div className="flex items-center mt-2.5 mb-5">

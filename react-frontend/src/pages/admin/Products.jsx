@@ -4,6 +4,9 @@ import Table, { Actions, ProductImage } from '../../components/admin/Table';
 import { Link } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useStateContext } from '../../contexts/StateContext';
+import useProductContext from "../../hooks/useProductContext"
+
+
 const getData = () => {
     const data = [
         {
@@ -15,9 +18,11 @@ const getData = () => {
         },
 
     ]
+
     return [...data]
 }
 const Products = () => {
+
     const columns = React.useMemo(() => [
         {
             Header: "Image",
@@ -45,8 +50,17 @@ const Products = () => {
             Cell: Actions,
         },
     ], [])
-
-    const data = React.useMemo(() => getData(), [])
+    let data = React.useMemo(() => getData(), [])
+    const { products } = useProductContext();
+    products.map((product) => {
+        data = [...data, {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            description: product.description,
+            imgUrl: ""
+        }]
+    })
     const { activeProductSb } = useStateContext();
 
     return (

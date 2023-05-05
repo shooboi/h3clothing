@@ -6,24 +6,24 @@ async function postThumbnails(formData) {
     try {
         const res =
 
-            await axios.post(POST_THUMBNAILS_URL, formData,
+            // await axios.post(POST_THUMBNAILS_URL, formData,
+            //     {
+            //         headers: {
+            //             'Content-Type': 'multipart/form-data',
+            //             'Access-Control-Request-Origin': "localhost:3000/"
+            //         },
+            //     })
+            await axios(
                 {
+                    method: "post",
+                    url: POST_THUMBNAILS_URL,
+                    data: formData,
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Access-Control-Request-Origin': "localhost:3000/"
                     },
-                })
-        // await axios(
-        //     {
-        //         method: "post",
-        //         url: POST_THUMBNAILS_URL,
-        //         data: JSON.stringify(formData),
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data',
-        //             'Access-Control-Request-Origin': "localhost:3000/"
-        //         },
-        //     }
-        // );
+                }
+            );
         console.log(res);
     } catch (error) {
         console.log(error);

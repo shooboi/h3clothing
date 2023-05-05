@@ -8,7 +8,7 @@ import { ThemeProvider } from '@material-tailwind/react';
 import ProductProvider from './contexts/ProductContext';
 import SidebarProvider from './contexts/SidebarContext';
 import CartProvider from './contexts/CartContext';
-import AuthProvider from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import FilterProvider from './contexts/FilterContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

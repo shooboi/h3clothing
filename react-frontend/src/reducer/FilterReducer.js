@@ -60,11 +60,14 @@ const FilterReducer = (state, action) => {
                 }
 
                 if (sorting_value === "az") {
-                    return a.title.localeCompare(b.title);
+                    const sort = !a.title ? a.name.localeCompare(b.name) : a.title.localeCompare(b.title);
+
+                    return sort;
                 }
 
                 if (sorting_value === "za") {
-                    return b.title.localeCompare(a.title);
+                    const sort = !a.title ? b.name.localeCompare(a.name) : b.title.localeCompare(a.title);
+                    return sort;
                 }
             };
             newSortData = tempSortProduct.sort(sortingProducts);

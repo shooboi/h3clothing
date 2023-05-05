@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
     return (
-        <div className='pt-[100px]'>
+        <div className='md:pt-[100px]'>
             <footer className=" bg-main-bg pt-[100px] pb-[70px]">
                 <div className="container">
                     <div className="grid grid-cols-5 mx-10 gap-5">
-                        <div className="">
+                        {/* logo */}
+                        <div className="col-span-5 lg:col-span-1 md:col-span-5">
                             <div className="">
                                 <div className="footer-logo">
                                     <a href="#">
@@ -18,7 +19,8 @@ const Footer = () => {
                                 <p>© 2023 <Link to="#">H3Clothing</Link>. All Rights Reserved</p>
                             </div>
                         </div>
-                        <div className="">
+                        {/* About us */}
+                        <div className="col-span-5 lg:col-span-1 md:col-span-2">
                             <div className="footer-widget mb-30 ml-30">
                                 <div className="font-medium">
                                     <h3>ABOUT US</h3>
@@ -33,7 +35,8 @@ const Footer = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-2 col-md-4 col-sm-4">
+                        {/* useful links */}
+                        <div className="col-span-5 lg:col-span-1 md:col-span-3">
                             <div className="footer-widget mb-30 ml-50">
                                 <div className="font-medium">
                                     <h3>USEFUL LINKS</h3>
@@ -44,11 +47,13 @@ const Footer = () => {
                                         <li><Link to="#" className="hover:text-[#a749ff]">Support Policy</Link></li>
                                         <li><Link to="#" className="hover:text-[#a749ff]">Size guide</Link></li>
                                         <li><Link to="#" className="hover:text-[#a749ff]">FAQs</Link></li>
+                                        <li><Link to="/admin" className="hover:text-[#a749ff]">Admin</Link></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-2 col-md-6 col-sm-6">
+                        {/* follow us */}
+                        <div className="col-span-5 lg:col-span-1 md:col-span-2">
                             <div className="footer-widget mb-30 ml-75">
                                 <div className="font-medium">
                                     <h3>FOLLOW US</h3>
@@ -63,7 +68,8 @@ const Footer = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-6 col-sm-6">
+                        {/* subscribe */}
+                        <div className="col-span-5 lg:col-span-1 md:col-span-3">
                             <div className="footer-widget mb-30 ml-70">
                                 <div className="font-medium">
                                     <h3>SUBSCRIBE</h3>

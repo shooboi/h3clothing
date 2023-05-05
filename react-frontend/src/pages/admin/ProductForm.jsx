@@ -6,6 +6,7 @@ import { useStateContext } from '../../contexts/StateContext';
 import ThumbnailServices from '../../services/ThumbnailServices';
 import { useParams } from 'react-router-dom';
 import useProductContext from '../../hooks/useProductContext';
+import ProductService from '../../services/ProductService';
 
 const ProductForm = (props) => {
     const [image, setImage] = useState([])
@@ -15,8 +16,8 @@ const ProductForm = (props) => {
     const { products } = useProductContext();
 
     const { id } = useParams();
-    const product = products.find((product) => { return product.id === id })
-    console.log(product)
+    const product = products.find((product) => { return product.id == id })
+    // console.log(product)
     // props.name = product.title;
     // props.price = product.price;
     // props.description = product.description;
@@ -38,16 +39,17 @@ const ProductForm = (props) => {
             formData.append('file', file);
         }
 
-        const product = {
+        // const product =
+        console.log(images, product);
+        formData.append('product', JSON.stringify({
             'name': name,
             'price': price,
             'description': description,
-            'category': category
-        }
-        console.log(images);
-        formData.append('product', product)
+            'category':
+                { 'id': 1 }
+        }))
 
-        ThumbnailServices.postThumbnails(formData);
+        ProductService.postProduct(formData);
     }
     return (
         <div className='rounded-3xl border-radious sm:pt-16 m-3 mt-12 md:m-8 p-5 md:p-10 w-auto h-auto max-w-full max-h-full object-contain bg-white'>

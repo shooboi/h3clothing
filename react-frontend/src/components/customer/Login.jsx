@@ -63,12 +63,12 @@ const Login = () => {
                         'Access-Control-Allow-Origin': '*'
                     },
                     withCredentials: true,
-
                 }
             );
-            const accessToken = response?.data?.accessToken;
+            const accessToken = response?.data?.token;
             const roles = response?.data?.roles;
             setAuth({ email, pwd, roles, accessToken });
+            // localStorage.setItem("auth", JSON.stringify(res.data.result));
             setEmail('');
             setPwd('');
             navigate(from, { replace: true })

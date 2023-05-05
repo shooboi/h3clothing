@@ -15,8 +15,8 @@ import {
     Button,
 } from "@material-tailwind/react";
 import { SidebarContext } from '../../contexts/SidebarContext';
-import { AuthContext } from '../../contexts/AuthContext';
 import { CartContext } from '../../contexts/CartContext';
+import useAuth from '../../hooks/useAuth';
 
 const navigation = {
     categories: [
@@ -155,7 +155,7 @@ function NavElement({ name, href }) {
 
 const Navbar = () => {
     const { isOpen, setIsOpen } = useContext(SidebarContext);
-    const { auth } = useContext(AuthContext);
+    const { auth } = useAuth()
     const { itemAmount } = useContext(CartContext)
 
     const [isOpenSearch, setIsOpenSearch] = useState(false);

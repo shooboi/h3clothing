@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react'
-import { Menu, Transition } from "@headlessui/react"
+import { Disclosure, Menu, Transition } from "@headlessui/react"
 
 import { Header, ProductList } from '../../components/customer'
 import { BiFilter, BiGrid, BiListUl } from "react-icons/bi"
 import useFilterContext from '../../hooks/useFilterContext';
+import { AiOutlineMinus, AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
+import { FaChevronDown } from 'react-icons/fa';
 
 const pages = [
     { 'id': 1, 'title': 'Shop' }
@@ -85,8 +87,47 @@ const Product = () => {
                     </div>
                 </div>
             </div>
-            <ProductList />
-        </div>
+            <div className='flex flex-row md:justify-start'>
+                <div className='hidden lg:flex flex-col w-[20vw] sm:ml-14 pt-10 gap-10'>
+                    <div className='relavtive items-center flex'>
+                        <div className='translate-x-5 inset-0 pointer-events-none inset-y-6'>
+                            <AiOutlineSearch></AiOutlineSearch>
+                        </div>
+                        <input className='flex-none border-b-2 border-gray-600 pb-1 pl-6 hover:border-black outline-none w-[250px]' type="text" placeholder='Search product...'>
+                        </input>
+                    </div>
+                    <div className='flex flex-col justify-start gap-3 pr-3'>
+
+                        <h2 className='text-2xl pb-10'>Product categories</h2>
+                        <Disclosure>
+                            {({ open }) => (
+                                <>
+                                    <Disclosure.Button className="flex w-full justify-between rounded-lg">
+                                        Men
+                                        <FaChevronDown
+                                            className={`${open ? 'rotate-180 transform' : ''
+                                                } text-xs`}
+                                        />
+
+                                        {/* {open ? <AiOutlinePlus /> : <AiOutlineMinus />} */}
+                                    </Disclosure.Button>
+                                    <Disclosure.Panel>
+                                        <Disclosure>
+                                            <Disclosure.Button className="pl-3">
+                                                shirt
+                                            </Disclosure.Button>
+                                        </Disclosure>
+                                    </Disclosure.Panel>
+                                </>
+                            )}
+                        </Disclosure>
+                    </div>
+                </div>
+                <div className=''>
+                    <ProductList />
+                </div>
+            </div>
+        </div >
     )
 }
 
