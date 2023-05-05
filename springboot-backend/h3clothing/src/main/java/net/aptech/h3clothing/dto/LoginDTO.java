@@ -1,5 +1,6 @@
 package net.aptech.h3clothing.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginDTO {
 //    @Email
     @NotBlank

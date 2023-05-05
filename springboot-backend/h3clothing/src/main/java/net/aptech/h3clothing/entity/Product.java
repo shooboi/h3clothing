@@ -19,7 +19,7 @@ public class Product extends Base {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @OneToMany(mappedBy = "product")

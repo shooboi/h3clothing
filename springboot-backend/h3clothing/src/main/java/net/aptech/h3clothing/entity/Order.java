@@ -1,10 +1,13 @@
 package net.aptech.h3clothing.entity;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -37,6 +40,9 @@ public class Order extends Base {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   private User user;
+
+  @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Order_Detail> orderDetails;
 
   public Order() {
   }
