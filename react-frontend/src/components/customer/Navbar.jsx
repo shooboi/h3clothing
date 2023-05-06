@@ -222,6 +222,10 @@ const Navbar = () => {
                 <div className="flex text-xl">
                     <Link to="/favorite" className='hover:text-lavender'>
                         <AiOutlineHeart />
+                        {/* <div className={`${itemAmount > 0 ? "" : "hidden"} absolute rounded-full bottom-auto left-0 right-auto top-0 bg-black z-50 text-white text-sm text-center -translate-y-1/2 translate-x-4 group-hover:bg-lavender
+                skew-x-0 skew-y-0 scale-x-100 scale-y-100 whitespace-nowrap px-2 py-1 align-baseline leading-none `}>
+                            {itemAmount}
+                        </div> */}
                     </Link>
                 </div>
                 <div className="flex text-xl">

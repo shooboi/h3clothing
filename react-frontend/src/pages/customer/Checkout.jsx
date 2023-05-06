@@ -1,9 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import { CartContext } from '../../contexts/CartContext'
 import useAuth from '../../hooks/useAuth';
+import { redirect, useNavigate } from 'react-router-dom';
+import OrderServices from '../../services/OrderServices';
 
 const Checkout = () => {
-    const { cart, total } = useContext(CartContext);
+    const { cart, total, clearCart } = useContext(CartContext);
+    const navigate = useNavigate();
     const { auth } = useAuth();
     useEffect(() => {
     })
@@ -17,9 +20,10 @@ const Checkout = () => {
             paymentMethod: "cash",
             deliveryAddress: "hanoi"
         }
-        console.log(order);
-
-
+        console.log(order, cart);
+        OrderServices.postOrder(order, cart)
+        clearCart();
+        navigate("/cart")
     }
 
     return (

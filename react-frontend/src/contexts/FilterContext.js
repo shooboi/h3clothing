@@ -23,7 +23,7 @@ const initialState = {
 };
 const FilterProvider = ({ children }) => {
 
-  const { products } = useProductContext();
+  const { products, fakeProduct } = useProductContext();
 
   const [state, dispatch] = useReducer(reducer, initialState);
 

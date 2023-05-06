@@ -15,11 +15,11 @@ const ProductCard = ({ product }) => {
 
     return (
         <div className="group rounded dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
-            <div className='relative flex justify-center items-center '>
+            <div className='relative w-[270px] h-[345px] flex justify-center items-center '>
 
-                <img className="md:max-h-[300px] rounded-t-lg p-4" src={image ? image : test} alt={title} />
+                <img className="max-h-[300px] rounded-t-lg p-4" src={image ? image : test} alt={title} />
 
-                <div className='flex absolute gap-x-0.5 md:w-[270px] bottom-0 ease-in'>
+                <div className='flex absolute gap-x-0.5 w-[270px] bottom-0 ease-in'>
                     <button>
                         <div className="flex justify-center items-center text-lg text-white w-12 h-12 bg-lavender group-hover:opacity-100 opacity-0 group-hover:translate-y-0 translate-y-[10px] transition-all duration-1000 ">
                             <CiHeart />

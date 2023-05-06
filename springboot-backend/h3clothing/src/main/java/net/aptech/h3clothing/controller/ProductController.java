@@ -48,6 +48,8 @@ public class ProductController {
 //
 //  @PostMapping(value = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,
 //        MediaType.APPLICATION_JSON_VALUE})
+
+  @PreAuthorize("hasAuthority('ADMIN')")
   @PostMapping(value = "/add",consumes = {"multipart/form-data"})
 //  @ResponseBody
   public ResponseEntity<?> addProduct(@Valid @RequestPart("product") String productDTO,
@@ -57,13 +59,14 @@ public class ProductController {
     return new ResponseEntity<>(dto, HttpStatus.CREATED);
   }
 
-
+  @PreAuthorize("hasAuthority('USER')")
   @GetMapping("/page/{index}")
   public List<ProductDTO> pagination(@PathVariable("index") Integer index,
       @RequestBody ProductDTO dto) {
     return productService.findAllByPage(dto, index);
   }
 
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
   @PutMapping("/update/{id}")
   public ResponseEntity<?> update(@PathVariable("id") Integer id,
       @RequestBody ProductDTO productDTO) {
@@ -78,6 +81,7 @@ public class ProductController {
     return ResponseEntity.ok(dto);
   }
 
+  @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("/delete/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
     service.remove(id);

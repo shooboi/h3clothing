@@ -1,6 +1,5 @@
-package net.aptech.h3clothing.jwt;
+package net.aptech.h3clothing.controller.jwt;
 
-import net.aptech.h3clothing.entity.User;
 import net.aptech.h3clothing.security.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

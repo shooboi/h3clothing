@@ -6,6 +6,7 @@ import { BiFilter, BiGrid, BiListUl } from "react-icons/bi"
 import useFilterContext from '../../hooks/useFilterContext';
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
 import CategoryServices from '../../services/CategoryServices';
+import useProductContext from '../../hooks/useProductContext';
 
 const pages = [
     { 'id': 1, 'title': 'Shop' }
@@ -43,7 +44,7 @@ const mapCategory = (category, updateFilterValue) => {
                                 } text-xs`}
                         /> */}
 
-                        {open ? <AiOutlinePlus /> : <AiOutlineMinus />}
+                        {open ? <AiOutlineMinus /> : <AiOutlinePlus />}
                     </Disclosure.Button>
                     <Transition
                         enter="transition duration-100 ease-out"
@@ -96,6 +97,7 @@ const Product = () => {
         all_products,
         clearFilters,
     } = useFilterContext();
+
     const [categoryData, setCategoryData] = useState([]);
 
     const getCategoryList = async () => {

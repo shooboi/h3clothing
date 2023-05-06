@@ -25,6 +25,7 @@ const ProductProvider = ({ children }) => {
         try {
             // const res = await axios.get(url);
             const products = await ProductService.getProducts();
+            console.log(products);
             const fakeProduct = await ProductService.getFakeProducts();
             setFakeProduct(fakeProduct);
             // const products = await res.data;

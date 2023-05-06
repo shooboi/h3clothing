@@ -5,6 +5,7 @@ import net.aptech.h3clothing.service.GenericService;
 import net.aptech.h3clothing.service.serviceImpl.OrderDetailServiceImpl;
 import net.aptech.h3clothing.service.serviceImpl.OrderServiceImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ public class OrderController {
     this.dtoGenericService = dtoGenericService;
   }
 
+  @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping("/list")
   public ResponseEntity<?> getAll() {
     return ResponseEntity.ok(dtoGenericService.getAll());
@@ -33,17 +35,17 @@ public class OrderController {
   public ResponseEntity<?> addOrder(@RequestBody OrderDTO orderDTO) {
     return ResponseEntity.ok(dtoGenericService.add(orderDTO));
   }
-
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
   @PutMapping("/update/{id}")
   public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody OrderDTO orderDTO) {
     return ResponseEntity.ok(dtoGenericService.update(id, orderDTO));
   }
-
+  @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("/delete/{id}")
   public void delete(@PathVariable("id") int id) {
     dtoGenericService.remove(id);
   }
-
+  @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
   @GetMapping("/get/{id}")
   public ResponseEntity<?> get(@PathVariable("id") int id) {
     return ResponseEntity.ok(dtoGenericService.getById(id));
